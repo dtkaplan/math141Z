@@ -1,8 +1,12 @@
 #' Plot a function of a single variable
 #'
 #'
+#' @param label_text character string label to place near the graph curve. Default: none.
+#' @param label_x number between 0 and 1 indicating the horizontal placement  of the `label_text`.
+#'
 #' @export
-slice_plot <- function(object, formula, domain, npts=100, ...) {
+slice_plot <- function(object, formula, domain, npts=100,
+                       label_text =  "", label_x = 1, label_vjust="top", ...) {
   # deal with having to accept previous layers
   # or this being the first layer
   if (rlang::is_formula(object)) {
@@ -38,5 +42,17 @@ slice_plot <- function(object, formula, domain, npts=100, ...) {
 
   if (is.null(object)) object <- ggplot(Eval_grid, the_mapping)
 
-  object + geom_line(data = Eval_grid, the_mapping, ...)
+  P <- object + geom_line(data = Eval_grid, the_mapping, ...)
+
+  # put the label in  place
+  if (label_text != "") {
+    n <- nrow(Eval_grid)
+    row_num <- pmax(1, pmin(n, round(n * label_x)))
+    xpos <- Eval_grid[row_num,1]
+    ypos <- Eval_grid$.output.[row_num]
+    P <- P + geom_text(x = xpos, y = ypos, label=label_text,
+                       vjust=label_vjust)
+  }
+
+  P
 }

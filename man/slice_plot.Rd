@@ -4,7 +4,21 @@
 \alias{slice_plot}
 \title{Plot a function of a single variable}
 \usage{
-slice_plot(object, formula, domain, npts = 100, ...)
+slice_plot(
+  object,
+  formula,
+  domain,
+  npts = 100,
+  label_text = "",
+  label_x = 1,
+  label_vjust = "top",
+  ...
+)
+}
+\arguments{
+\item{label_text}{character string label to place near the graph curve. Default: none.}
+
+\item{label_x}{number between 0 and 1 indicating the horizontal placement  of the \code{label_text}.}
 }
 \description{
 Plot a function of a single variable
