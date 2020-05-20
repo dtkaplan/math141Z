@@ -1,0 +1,30 @@
+#' Measures of material well-being as a function of income.
+#'
+#' The data divides Americans into six groups based on income. Within
+#' each group, the other variables report the percentage of households with children in the indicated
+#' situation. Doctor visits are counts.
+#'
+#' The file ``Income-Housing.csv" contains data on incomes and housing conditions for US households divided into groups by income. (Source:
+#' @format A data frame  with 6 rows and 11 variables.
+#'
+#' - `CrimeProblem` - Fraction of families living in an area with a crime problem
+#' - `AbandonedBuildings` - Fraction of families living in an area with abandoned building
+#' - `IncompleteBathroom` - Fraction of families without a complete bathroom in their dwelling.
+#' - Other variables from `NoCentralHeat` to `Telephone` are similarly a fraction of families
+#' - `DoctorVisitsUnder7` - (?) Average number of visits to a doctor of children under 7
+#' - `DoctorVisits7To18` - (?) Average number of visits to a doctor of children in this age group.
+#' - `NoDoctorVisitUnder7` - (?) Fraction of households with children under 7 who have
+#' not visited a doctor (ever? in the last year?)
+#' - `NoDoctorVisit7To18` - Similar, but for children aged 7 to 18.
+#'
+#' @source Susan E. Mayer (1997) "What money can’t buy: Family income and children’s life chances," Harvard Univ. Press p. 102.
+#'
+
+#' @docType data
+#' @name Properity
+#' @usage data(Prosperity)
+#'
+#' @keywords datasets
+#'
+
+"Prosperity"
