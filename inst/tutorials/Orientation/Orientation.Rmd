@@ -49,7 +49,7 @@ Welcome to the Math 141Z tutorials on using R for calculus.
 
 These computing tutorials **replace** the "Working in RStudio" sections in the Kilty and McAllister *Mathematical Modeling and Applied Calculus* textbook. You can ignore those sections.
 
-Each computing tutorial will have a layout similar to this document. For most browser setups, there are two columns in a tutorial. The left column gives the document title and a navigable table of contents. 
+Each computing tutorial will have a layout similar to this document. For most browser setups, there are two columns in a tutorial. The left column gives the document title and a navigable table of contents. (If your browser window is very small, the table of contents will become a drop-down menu rooted in the title of the tutorial.)
 
 The right column shows one page of the tutorial. There are typically several pages in a computing tutorial.
 
@@ -80,11 +80,12 @@ The tutorials include facilities for you to write your own computer commands and
 sqrt(47)
 ```
 
-You press "Run code"  to evaluate the code in the box.
+Often the code boxes will be pre-populated with text that you will edit in order to customize for some purpose. You press "Run code"  to evaluate the code in the box.
 
-Often the code boxes will be pre-populated with text that you will edit in order to customize for some purpose. The following code box has a simple exercise:
 
-There's a mistake in the code box below. Fix it in order to calculate $\sqrt{477}$.
+Sometimes there will be a "Submit" button on the code box. You can work with the box to get the answer you want, testing as you go by pressing "Run code." Then, when you think you have worked out the right answer, press "Submit." 
+
+There's a mistake in the code box below. Fix it in order to calculate $\sqrt{477}$ and then submit your answer.
 
 
 ```{r orientation-E1, exercise=TRUE, exercise.cap="Sandbox", exercise.setup="orientation-E1-setup", exercise.eval=FALSE, exercise.lines=2, exercise.completion=FALSE, exercise.startover=TRUE, exercise.diagnostics=TRUE}
