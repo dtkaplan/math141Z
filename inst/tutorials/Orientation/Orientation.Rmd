@@ -51,7 +51,7 @@ These computing tutorials **replace** the "Working in RStudio" sections in the K
 
 Each computing tutorial will have a layout similar to this document. For most browser setups, there are two columns in a tutorial. The left column gives the document title and a navigable table of contents. (If your browser window is very small, the table of contents will become a drop-down menu rooted in the title of the tutorial.)
 
-The right column shows one page of the tutorial. There are typically several pages in a computing tutorial.
+The right column shows one page of the tutorial. There are typically several pages in a computing tutorial. 
 
 Every page in the tutorial has a login section. You are to use the computing ID [IN DRAFT: We need to establish the system for this.] and password that have been provided to you. When you see the "Login SUCCESSFUL" message, you are ready to go. 
 
