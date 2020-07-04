@@ -4,7 +4,8 @@
 \name{Home_utilities}
 \alias{Home_utilities}
 \title{Gas  and electricity usage by a home in St. Paul, MN}
-\format{A data.frame object with one row for each month
+\format{
+A data.frame object with one row for each month
 \itemize{
 \item \code{month} - the month covered by the bill as a number
 \item \code{day} - the terminating day of the bill
@@ -18,7 +19,8 @@
 \item \code{gasbill}: - dollar amount of the natural gas  part of the bill
 \item \code{elecbill} - dollar amount of the electricity bill
 \item \code{notes} - miscellaneous  comments on the month's bill or changes in the house
-}}
+}
+}
 \source{
 Personal communication from the homeowner
 }

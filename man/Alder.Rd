@@ -4,7 +4,8 @@
 \name{Alder}
 \alias{Alder}
 \title{Nitrogen fixing by alder plants}
-\format{A data frame \code{Alder} with 196 rows and 24 variables:
+\format{
+A data frame \code{Alder} with 196 rows and 24 variables:
 \itemize{
 \item LAND. landscape, floodplain vs. upland.
 \item SAMPPER. sampling period: early, mid, late
@@ -31,7 +32,8 @@ for early succession upland and UP3A,B,C for late succession upland
 \item SITESPEC. concatenated SITE, SPECIES
 \item REP. replicate site within a given level of HABSPEC
 \item PLNO. plant number, unique for individuals of each species (AT1-180, AC1-270)
-}}
+}
+}
 \source{
 Michael Anderson
 }

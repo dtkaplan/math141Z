@@ -4,13 +4,15 @@
 \name{AARP}
 \alias{AARP}
 \title{Prices for life insurance}
-\format{A data frame with 36 observations on the following variables.
+\format{
+A data frame with 36 observations on the following variables.
 \itemize{
 \item{\code{Age}} {The age of the person covered by the insurance policy.}
 \item{\code{Sex}} {The sex of the person covered by the insurance policy.}
 \item{\code{Coverage}} {The "death benefit" in 1000 USD.}
 \item{\code{Cost}} {Monthly cost in USD.}
-}}
+}
+}
 \source{
 The "AARP Bulletin".
 A copy of the ad is available \href{http://tiny.cc/mosaic/AARP-insurance-ad.pdf}{at this link.}

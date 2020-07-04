@@ -4,7 +4,9 @@
 \name{Ivan}
 \alias{Ivan}
 \title{Track of Hurricane Ivan in Sept. 2004}
-\format{An object of class \code{data.frame} with 95 rows and 23 columns.}
+\format{
+An object of class \code{data.frame} with 95 rows and 23 columns.
+}
 \usage{
 Ivan
 }

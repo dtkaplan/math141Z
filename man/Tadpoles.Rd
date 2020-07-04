@@ -4,13 +4,15 @@
 \name{Tadpoles}
 \alias{Tadpoles}
 \title{Swimming speed of tadpoles.}
-\format{A data frame \code{Trucking_jobs} with 129 rows and 11 variables.
+\format{
+A data frame \code{Trucking_jobs} with 129 rows and 11 variables.
 \itemize{
 \item{\code{group}} {Whether the tadpole was raised in cold water ("c") or warm ("w").}
 \item{\code{rtemp}} {The temperature (C) of the water in which the swimming speed was measured. (The swimming channel is called a "race".)}
 \item{\code{length}} {The tadpole's length, in mm.}
 \item{\code{vmax}} {The maximum swimming speed attained in one trial, in mm/sec.}
-}}
+}
+}
 \usage{
 data(Tadpoles)
 }

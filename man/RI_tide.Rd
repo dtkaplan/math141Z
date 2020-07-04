@@ -4,7 +4,9 @@
 \name{RI_tide}
 \alias{RI_tide}
 \title{Tide level in Providence, Rhode Island US}
-\format{An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 6480 rows and 2 columns.}
+\format{
+An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 6480 rows and 2 columns.
+}
 \usage{
 RI_tide
 }

@@ -4,7 +4,8 @@
 \name{Mussels}
 \alias{Mussels}
 \title{Metabolism of zebra mussels}
-\format{A data frame \code{Mussels} with 30 rows and 11 variables.
+\format{
+A data frame \code{Mussels} with 30 rows and 11 variables.
 \itemize{
 \item{\code{GroupID}} {ID for the cluster of mussels growing on a substrate. }
 \item{\code{dry.mass}} {The mass of the mussels (as a group) after dehydration.}
@@ -17,7 +18,8 @@
 \item{\code{ammonia}} {Nitrogen excretion measured as ammonia in mg per hour for the group.}
 \item{\code{Kcal}} {Total calorific value of the tissue in kilo-calories per gram.}
 \item{\code{O2}} {Oxygen uptake in mg per hour for the group.}
-}}
+}
+}
 \usage{
 data(Mussels)
 }

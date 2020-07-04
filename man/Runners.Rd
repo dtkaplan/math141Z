@@ -4,7 +4,8 @@
 \name{Runners}
 \alias{Runners}
 \title{Performance of runners in a ten-mile race as they age}
-\format{A data frame \code{Runners} with 24,334 rows and 8 variables.
+\format{
+A data frame \code{Runners} with 24,334 rows and 8 variables.
 \itemize{
 \item{\code{age}} {The runners age at the time of the race.}
 \item{\code{net}} {The time (in min.) elapsed from when the runner crossed the start line until the finish.}
@@ -15,7 +16,8 @@ so many participants, some runners do not reach the start line until several min
 \item{\code{nruns}} {How many of the 10 years' runs the runner eventually participated in.}
 \item{\code{start_position}} {A made-up categorical description of where the runner was situated in the
 line up for the race..}
-}}
+}
+}
 \usage{
 data(Runners)
 }

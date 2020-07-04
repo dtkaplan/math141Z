@@ -5,7 +5,8 @@
 \alias{Properity}
 \alias{Prosperity}
 \title{Measures of material well-being as a function of income.}
-\format{A data frame  with 6 rows and 11 variables.
+\format{
+A data frame  with 6 rows and 11 variables.
 \itemize{
 \item \code{CrimeProblem} - Fraction of families living in an area with a crime problem
 \item \code{AbandonedBuildings} - Fraction of families living in an area with abandoned building
@@ -16,7 +17,8 @@
 \item \code{NoDoctorVisitUnder7} - (?) Fraction of households with children under 7 who have
 not visited a doctor (ever? in the last year?)
 \item \code{NoDoctorVisit7To18} - Similar, but for children aged 7 to 18.
-}}
+}
+}
 \source{
 Susan E. Mayer (1997) "What money can’t buy: Family income and children’s life chances," Harvard Univ. Press p. 102.
 }

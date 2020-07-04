@@ -4,7 +4,8 @@
 \name{Kepler}
 \alias{Kepler}
 \title{Kepler's calculation of the position of Mars}
-\format{A data frame with 28 rows and these variables:
+\format{
+A data frame with 28 rows and these variables:
 \itemize{
 \item \code{time} - Interval in Earth days from 8:15am Greenwich
 time on 9 March 1584.
@@ -12,7 +13,8 @@ time on 9 March 1584.
 \item \code{kepler.angle} - The "true anomoly" measured in radians
 \item \code{actual.radius} - Modern calculation of the above
 \item \code{actual.angle} - Modern calculation of the above
-}}
+}
+}
 \source{
 Drawn from  from McLaughlin, Michael P. ( 1999 ) "A Tutorial on
 \href{http://www.causascientia.org/math_stat/Tutorial.pdf}{Mathematical Modelling"}

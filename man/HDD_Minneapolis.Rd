@@ -4,14 +4,16 @@
 \name{HDD_Minneapolis}
 \alias{HDD_Minneapolis}
 \title{Heating degree days in Minneapolis, Minnesota, USA}
-\format{A data frame \code{HDD_Minneapolis} with 1412 rows and 4 variables:
+\format{
+A data frame \code{HDD_Minneapolis} with 1412 rows and 4 variables:
 \itemize{
 \item year the year
 \item month the month
 \item hdd the number of heating degree days for that period.
 \item loc the location at which the temperature was measured. In the early years, this was downtown Minneapolis.
 Later, the site was moved to the Minneapolis/Saint-Paul International Airport.
-}}
+}
+}
 \usage{
 data(HDD_Minneapolis)
 }
