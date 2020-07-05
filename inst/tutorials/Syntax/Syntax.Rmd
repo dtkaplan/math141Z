@@ -23,6 +23,7 @@ library(gradethis)
 library(submitr)
 library(basket)
 library(USAFAexercises)
+etude::show_answers(FALSE)
 
 
 learnr::tutorial_options(exercise.timelimit = 60,
@@ -194,11 +195,17 @@ Note that quotation marks are never allowed in a name. That is why, in these not
 
 ### Practice
 
-- Is `speed <- 46 mph` a complete expression.
-- What happens if you use a name before it has been assigned to a value.
-- Fix the name so that it is legal.
+The sandbox below provides a place for you to try out expressions. Think of this as scratch paper to allow you to figure out the answers to the questions. 
 
-Fix `46 <- john` to be a legitmate assignment to the name `john`.
+```{r R-syntax-sandbox2, exercise=TRUE, exercise.cap="Sandbox", exercise.setup="R-syntax-sandbox2-setup", exercise.eval=FALSE, exercise.lines=4, exercise.completion=FALSE, exercise.startover=TRUE, exercise.diagnostics=TRUE}
+
+```
+
+
+`r etude::include_etude("Exercises/Computing/crocodile-drive-pants.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
+
+`r etude::include_etude("Exercises/Computing/cow-talk-piano.Rmd", "**Practice 2**: ", package = "USAFAexercises")`
+
 
 ## Function evaluation
 
@@ -208,7 +215,7 @@ In this section, we going to look how to write an R expression to *evaluate* a f
 sqrt(5)
 ```
 
-This is such an important concept in computing that there are many equivalent ways of saying it. Just for fun, here are a few:
+Function evaluation is such an important concept in computing that there are many equivalent ways of saying it. Just for fun, here are a few:
 
 - "Invoke a function."
 - "Execute a function."
@@ -218,16 +225,31 @@ This is such an important concept in computing that there are many equivalent wa
 - Grandparents (born pre-1960): "Call a subroutine."
 - "Apply a function to arguments." -- The longest, but the most technically correct. The word "argument" is the proper way of referring to an input to a function.
 
+The names of functions generally describe the purpose of the function. `sqrt` is the name of a function for calculating square roots, `sin` and `cos` are names of common trigonometric functions, `log` is the name of a function to compute logarithms. 
 
-## Spotting functions in commands
+Each of these functions happens to take a number as input and produces a number as output. You produce a value by applying the function to an argument. In the above example, `sqrt(5)`, the argument is the number `5`. 
 
-Consider this complicated-looking mathematical expression:
+The syntax of applying a function to an argument is always the same and always involves an opening and a closing parenthesis.
 
-$$\sqrt{\sin^2 \frac{\pi}{5} + \cos^2 \frac{\pi}{5}} .$$
+$$\mbox{function_name} \left( \mbox{argument} \right)$$
+There are *only* two contexts in R that involve parentheses used correctly in an expression. 
+1. Arithmetical grouping, as in `(3 + 2) / 4`.
+2. Applying a function to an argument.
 
-In R, this expression might be written like this:
+Whenever you see a name followed by an opening parenthesis, you know that the name refers to a function.
 
-```{r}
-angle <- pi / 5
-sqrt(sin(angle)^2 + cos(angle)^2)
-```
+### Practice
+
+`r etude::include_etude("Exercises/Computing/rabbit-bite-scarf.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
+
+## Tilde expressions
+
+It's about relationships.
+
+See the exercises birch-throw-lamp and rabbit-mean-saucer in "RforCalculus" project.
+
+
+
+
+
+
