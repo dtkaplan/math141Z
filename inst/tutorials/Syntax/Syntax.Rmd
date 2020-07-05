@@ -1,0 +1,233 @@
+---
+title: "Computing in 141Z"
+subtitle: "R arithmetic syntax"
+output: learnr::tutorial
+tutorial:
+  id: "Syntax"
+  version: 0.1
+runtime: shiny_prerendered
+date: ""
+tags: [arithmetic, second, third]
+id: R-syntax
+---
+
+```{r include = FALSE}
+# Note the context="server". That's so that the question_ui_initialize methods from etude will be registered.
+library(mosaic)
+library(mosaicCalc)
+library(ggformula)
+library(math141Z)
+library(etude)
+library(learnr)
+library(gradethis)
+library(submitr)
+library(basket)
+library(USAFAexercises)
+
+
+learnr::tutorial_options(exercise.timelimit = 60,
+                 exercise.checker = gradethis::grade_learnr)
+```
+
+```{r echo=FALSE}
+submitr::login_controls()
+```
+
+```{r context="server", echo = FALSE}
+options(tutorial.storage = "none")
+vfun <- basket::check_valid
+  #submitr::make_basic_validator(NULL, "hello")
+storage_actions <- submitr::record_gs4("1w3fEld2rZlR_6FuzvkA-viOLBA5JdqD3xHl-LuLX3-Y", "statprep.annie@gmail.com", vfun)
+  # submitr::record_local("./minimal_submissions.csv")
+submitr::shiny_logic(input, output, session, vfun,
+                     storage_actions)
+```
+
+## Syntax?
+
+The word "syntax" means "the arrangement of words and phrases to create well-formed sentences in a language."  The language you will be using is R. By learning the syntax of R you will be able to make sense of new R commands without memorizing lots of details. 
+
+The aspects of R syntax that you will learn in this tutorial are:
+
+- basic **arithmetic**
+- using **names**
+- application of **functions** to **arguments**
+- creating and using **tilde-expressions**, also called "formulas."
+- the helpful use of **blank space**
+
+##  Basic arithmetic
+
+Almost all computer languages provide a way for writing numerals and doing arithmetic that is a close match to the tradition notation you learned in mathematics classes. So many of the following examples will be obvious to you. Still, there are little differences from time to time that are important to get right.
+
+Traditional          | R                   | comments
+--------------------:|:--------------------|:---------
+$160$                |  `160`              | 
+$1.6 \times 10^2$    | `1.6e2`             | The `e2` means $\times 10^2$. Note that there are no spaces in the R expression.
+$1.6 \times 10^{-3}$ | `1.6e-3`            | The `e-3` means $\times 10^2$. Again, no spaces.
+$3,425,187$          | `3425187`          || Don't use commas to divide into 3-digit groups.
+$15 + 3$             | `15 + 3`            |
+$\frac{15}{3}$       | `15 / 3`            |
+$15 \times 3$        | `15 * 3`            | You must always use the `*` for multiplication.
+$15 \cdot 3$         | `15 * 3`            |
+$15 - 3$             | `15 - 3`            |
+$15^3$               | `15  ^  3`          | They `^` symbol is called a "caret." There are no superscripts in R. You use `^` instead.
+$15^{3 + 2}$         | `15 ^ (3 + 2)`      | You need to use parenthesis to enforce the grouping of `3 + 2`.
+$\frac{4 + 2}{1 + 5}$| `(4 + 2) / (1 + 5)` | Use parentheses to enforce the grouping.
+$|3 - 5|$            | `abs(3 - 5)`        | Use the `abs()` function.
+$\sqrt{15}$          | `sqrt(15)`          | Use the `sqrt()` function.  Note the parentheses.
+$\sqrt[3]{15}$       | `15 ^ (1/3)`        | Recall that even in traditional notation, $\sqrt[3]{15}$  is  the same as $15^{\frac{1}{3}}$
+$\sin \pi$           | `sin(pi)`           | Note that the number $\pi$ is given the *name* `pi` in R. Also note the parentheses. 
+$\ln 20$             | `log(20)`           | The so-called "natural" logarithm.
+$\log_{10}20$        | `log(20, base = 10)`
+$e^{3}$              | `exp(3)`            | Don't confuse the mathematical number $e$ (which is called "Euler's number") with the use of `e` in scientific notation in R, for instance `1.6e-3`.
+
+### Practice 
+
+These are drawn from Question 7 on p. 13 of MMAC textbook.
+
+`r etude::include_etude("Exercises/Computing/bee-write-closet.Rmd", "**MMAC 1.1.7a**: ", package = "USAFAexercises")`
+
+`r etude::include_etude("Exercises/Computing/bee-write-closet2.Rmd", "**MMAC 1.1.7b**: ", package = "USAFAexercises")`
+
+`r etude::include_etude("Exercises/Computing/bee-write-closet3.Rmd", "**MMAC 1.1.7c**: ", package = "USAFAexercises")`
+
+`r etude::include_etude("Exercises/Computing/bee-write-closet4.Rmd", "**MMAC 1.1.7d**: ", package = "USAFAexercises")`
+
+`r etude::include_etude("Exercises/Computing/bee-write-closet5.Rmd", "**MMAC 1.1.7e**: ", package = "USAFAexercises")`
+
+`r etude::include_etude("Exercises/Computing/bee-write-closet6.Rmd", "**MMAC 1.1.7f**: ", package = "USAFAexercises")`
+
+`r etude::include_etude("Exercises/Computing/panda-dig-book.Rmd", "**Bonus**: ", package = "USAFAexercises")`
+
+## Commands and expressions in R
+
+As you know, the syntax of natural languages like English involves words, phrases, and sentences. To grammarians, a sentence is a complete thought. 
+
+Here are examples of complete thoughts in R. (The examples relate to arithmetic only because that is the only element of R syntax we have examined so far in these notes.)
+
+```{r, echo=TRUE}
+3 + 8
+(3 + 8) / 4
+sqrt(27)
+```
+
+Nobody uses the word "sentence" to refer to a complete thought in a computer language. Instead, the word "command" is often used. This is appropriate because the purpose of framing a complete thought in a computer language is to tell the computer to do something.
+
+In both English and computer languages there are *incomplete thoughts*, sequences of words or symbols that aren't yet a sentence but are heading in that direction. For instance:
+
+- "She is coming from"
+- `3 +`
+- "Alice walked with"
+- `sqrt(27`
+
+A person's initial reaction to an incomplete thought in English is to wait for the speaker to complete the thought. Often, there is some dangling word that signals the thought is still incomplete: "from" and "with" in the above examples. Note that "She is coming." is a complete thought even though "She is coming from" is not.
+
+The same is true in R. `3` is a complete thought, but `3 +` is not. If you hand an incomplete thought to R as a command, R will tell you that something is wrong. For instance:
+
+```{r echo=TRUE, error=TRUE}
+3 +
+```
+
+Complete thoughts are often assembled out of components. In natural languages, we call these components "words" or "phrases." In R we shall call them **expressions**. An R expression is a complete thought. Admittedly, an individual expression might not describe the complete computation that we intend to carry out, but, like "Alice walked" it describes some computation.
+
+### Practice
+
+To help you answer the following questions, here is a computing sandbox where you can try out expressions to check whether or not they are complete.
+
+
+```{r R-syntax-sandbox1, exercise=TRUE, exercise.cap="Sandbox", exercise.setup="R-syntax-sandbox1-setup", exercise.eval=FALSE, exercise.lines=2, exercise.completion=FALSE, exercise.startover=TRUE, exercise.diagnostics=TRUE}
+
+```
+
+
+
+```{r R-syntax-TF1, echo=FALSE}
+etude::true_or_false(
+  prompt = "**Question 1**: Is `((1 + 2) / (3 + 4)` a complete expression?",
+  FALSE,
+  message_wrong = "The opening parenthesis is unneeded. There's no harm using extra parentheses, but every opening paren needs to be closed.")
+```
+
+```{r R-syntax-TF2, echo=FALSE}
+etude::true_or_false(
+  prompt = "**Question 2**: Is `3e6` a complete expression?",
+  TRUE,
+  message_wrong = "`3e6` means 3 followed by 6 zeros, that is, 3000000.")
+```
+
+```{r R-syntax-TF3, echo=FALSE}
+etude::true_or_false(
+  prompt = "**Question 3**: Is `sqrt(24))` a complete expression?",
+  FALSE,
+  message_wrong = "The last closing parenthesis does not have a corresponding opening parenthesis.")
+```
+
+```{r R-syntax-TF4, echo=FALSE}
+etude::true_or_false(
+  prompt = "**Question 1**: Is `5 (3 + 4)` a complete expression?",
+  FALSE,
+  message_wrong = "Just as an English sentence needs a verb, multiplication by 5 must be signalled with *.")
+```
+
+## Using names
+
+R (and most other computer languages) can *store* the results of a computation under a name, for later reference. For instance, 
+
+```{r}
+speed <- 46
+```
+
+Here, `speed` is the name we have selected to store the value 46. An R expression that stores a value under a name is called an "assignment expression." 
+
+The name to be used *always* goes to the left of `<-`. The right side can be any R expression.
+
+After assignment to a name has been carried out, you can use that name as an expression. The name will stand for the value that had previously been stored.
+
+There are rules for legitimate names. For instance:
+
+- A name should start with a letter.
+- Digits (0, 1, 2, ...) are allowed, but not as a leading character.
+- The period and underscore (`.` and `_`) can be used within the name, but no other punctuation can be used.
+- Capitalization matters. `Speed` and `speed` are different names.
+
+Note that quotation marks are never allowed in a name. That is why, in these notes, we use a typewriter font, as in `speed`, to present a name.
+
+### Practice
+
+- Is `speed <- 46 mph` a complete expression.
+- What happens if you use a name before it has been assigned to a value.
+- Fix the name so that it is legal.
+
+Fix `46 <- john` to be a legitmate assignment to the name `john`.
+
+## Function evaluation
+
+In this section, we going to look how to write an R expression to *evaluate* a function. For example, you have already seen the `sqrt()` function. The following expression evaluates the square-root function with the input 5.
+
+```{r}
+sqrt(5)
+```
+
+This is such an important concept in computing that there are many equivalent ways of saying it. Just for fun, here are a few:
+
+- "Invoke a function."
+- "Execute a function."
+- Old timers (born pre-1970): 
+    - "Call a function."
+    - "Run a function."
+- Grandparents (born pre-1960): "Call a subroutine."
+- "Apply a function to arguments." -- The longest, but the most technically correct. The word "argument" is the proper way of referring to an input to a function.
+
+
+## Spotting functions in commands
+
+Consider this complicated-looking mathematical expression:
+
+$$\sqrt{\sin^2 \frac{\pi}{5} + \cos^2 \frac{\pi}{5}} .$$
+
+In R, this expression might be written like this:
+
+```{r}
+angle <- pi / 5
+sqrt(sin(angle)^2 + cos(angle)^2)
+```
