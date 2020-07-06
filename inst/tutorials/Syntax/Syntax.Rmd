@@ -238,15 +238,54 @@ There are *only* two contexts in R that involve parentheses used correctly in an
 
 Whenever you see a name followed by an opening parenthesis, you know that the name refers to a function.
 
+Many functions have more than one argument. When there are multiple arguments, they are *always* separated by commas.
+
+Functions often have *named arguments*. This is useful when there are many possible arguments, some of which will have default values to reflect the typical use. As an example,  consider the `log` function, which takes a single numerical argument but also accepts a named argument to set the "base" of the log.
+
+```{r}
+log(100)
+log(100, base = 10)
+log(100, base = 2)
+```
+
+Note the use of the `=` symbol. That is the way to assign a value to the particular argument. It is quite reminiscent of the way that `<-` is used, but you cannot use `<-` for  named arguments. The only legitimate place for `=` to be used is inside the parentheses that contain the arguments.
+
+
+
 ### Practice
 
 `r etude::include_etude("Exercises/Computing/rabbit-bite-scarf.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
 
+`r etude::include_etude("Exercises/Computing/deer-dive-car.Rmd", "**Practice 2**: ", package = "USAFAexercises")`
+
 ## Tilde expressions
 
-It's about relationships.
+As you know, the point of a function is to translate inputs into an output. Calculus is very much about the study and use of functions, and it's fortunate that many mathematical functions use a notation similar to that of computer functions.
 
-See the exercises birch-throw-lamp and rabbit-mean-saucer in "RforCalculus" project.
+Functions are an important way to represent mathematically relationships between variables. 
+
+Sometimes you want to express to the computer an idea like, "Fuel consumption is a function of speed and air density." This is a complete thought in English--it's a sentence!--but it isn't a complete description of the specific relationship between fuel consumption and the other variables, which might be detailed and complicated.
+
+R has a special syntax for representing relationships between variables in general terms: the *tilde expression*. You will be using tilde expressions throughout the course, even from the very beginning. A tilde expression along the lines of "fuel consumption is a function of speed and air density" is
+
+    fuel_consumption ~ speed + air_density
+    
+1. Any names used in a tilde expression need to be proper R names. That's why, for example, the tilde expression involves `fuel_consumption`, which is a legal name,  rather than `fuel consumption`.
+2. In a tilde expression, `+` does not necessarily refer to mathematical addition. So rather than reading `speed + air_density` as "speed added to air density" it will often mean "speed and air density" or "both speed and air density."
+3. A tilde expression always includes the tilde symbol, `~`. The expressions on the left and the right side of the tilde must always be consistent with R syntax. So `fuel_consumption ~ speed, air_density` is not a proper expression.
+
+It's easy to confuse the tilde `~` with the minus sign `-`. So take care. Just to emphasize what the tilde looks like, here it is, unmistakably.
+
+
+```{r echo=FALSE, fig.align="center", out.width="50%"}
+knitr::include_graphics("images/tilde.png")
+```
+
+### Practice
+
+`r etude::include_etude("Exercises/Computing/giraffe-dream-coat.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
+
+
 
 
 
