@@ -189,6 +189,8 @@ contour_plot(
 
 Since the tilde expression and the `domain()` specification are typographically long, for clarity I've put each of the two arguments to `contour_plot()` on it's own line. Notice that the two arguments are separated by a comma in the usual fashion. Notice as well that the closing function-application  parenthesis for `contour_plot()` is on its own line. Such formatting is helpful for the human reader and works well with R. 
 
+The assignment of variables to the horizontal and vertical axes is established by the order of the named arguments to `domain()`. 
+
 Recall that in a contour plot, each individual contour shows the set of inputs at which the *output* of the function is a certain level that's labeled on the contour. The levels displayed in the plot are, by default, selected by `contour_plot()` to give a fair display of the range of function outputs over the graphic domain of the plot. To keep the plot from becoming overburdened with labels, `contour_plot()` will omit some of the labels. So in the example above, the contours are for function outputs of -2, 0, 2, 4, 6, 8, 10, and 12. But there are labels only for -2, 2, 6, and 10.
 
 Sometimes you will want to choose for yourself the output levels at which a contour will be drawn and label every contour rather than skipping. You can accomplish this by giving additional named arguments to `contour_plot()`, for instance:
@@ -236,8 +238,156 @@ terrain <- makeFun(tmp(latitude - 38, longitude + 104) ~ latitude + longitude)
 ```{r echo=TRUE}
 interactive_plot(
   terrain(latitude, longitude) ~ latitude + longitude,
-  domain(latitude = c(33, 43), longitude = c(-99, -106 ))
+  domain(longitude = c(-99, -106 ), latitude = c(33, 43))
   )
 ```
+
 Surface plots are much easier to interpret if you can rotate them. Use your mouse or trackpad to do this.
+
+
+### Practice
+
+`r etude::include_etude("Exercises/Computing/doe-bid-vase.Rmd", "**MMAC Question 1.2.6*: ", package = "USAFAexercises")`
+
+
+## Graphing two functions together
+
+Many physical, economic, and social science phenomena involve a balance between two or more factors. For example, micro-economics is famously about the balance of supply and demand. 
+
+Both the supply of a good (the quantity brought to market) and the demand (the quantity actually purchased) are functions of price. The lower the price, the higher the demand; people prefer things that are less expensive.  But at a low price, sellers have little incentive to bring the good to market. The graph displays this schematically.
+
+```{r}
+supply <- makeFun(1000 + 1000 * tanh(price/20 - 3) ~ price)
+demand <- makeFun(750 + 750 * tanh(2 -price/30) ~ price)
+slice_plot(supply(price) ~ price, domain(price=c(0,100)), color = "blue", label_text = "Supply", label_x = .8) %>%
+  slice_plot(demand(price) ~ price, color = "green", label_text = "Demand", label_x = 0.2) %>%
+  gf_labs(y = "Quantity", x = "Price ($)") 
+```
+
+As you can see, there is one price that leads to demand being exactly in balance with supply. The mathematical process of finding such  a price is called "solving simultaneously for price the supply function and the demand function." Or, stated more brusquely, find the price where the graphs of the two functions intersect.
+
+Later, when we study differential equations, we'll see a mechanism by which a market price changes to balance supply and demand.
+
+With `slice_plot()`  you can draw a graph of a function of one variable.  You can "chain" multiple `slice_plot()` commands together to put multiple graphs on the same axis. The syntax is this:
+
+```{r results="hide", echo=TRUE}
+slice_plot(demand(price) ~ price, 
+           domain(price = c(0,100)),
+           color = "green"
+           ) %>%
+  slice_plot(supply(price) ~ price, 
+             color = "blue")
+```
+
+
+
+Comment on  the `%>%` symbol. `slice_plot()` is arranged to accept an optional input: a graph that's already been made. When such an input is given, `slice_plot()` adds the new graph to the graph provided as input. You can add as many layers of such graphics as you like. `slice_plot()` provides a `label_text=` argument that puts a label you provide on the plot, positioning it at the height of the function. For instance, in the example that started this section, `slice_plot()` was given the argument `label_text = "Supply"`. The quotation marks around the label are essential.
+
+An alternative to plotting two graphs on top  of one another and looking for the crossing points (if any) is to construct a single function  that is the *difference* between the two functions. For instance:
+
+```{r echo=TRUE}
+excess_demand <- makeFun(demand(price) - supply(price) ~ price)
+slice_plot(excess_demand(price) ~ price, domain(price = c(0, 100)))
+```
+According to  the graph, for prices below  about $50, demand exceeds supply, while for prices above about 70$ there is excess supply compared to demand. Where the graph crosses an output of zero, demand and supply are equal.
+
+Looking for the zero-crossing of a difference function is a perfect sensible way to see whether the two functions produce the same output for a given input. But sometimes you won't want the trouble of reading the x-axis to find a precise value of the input where the zero-crossing happens. An alternative, not involving graphics, is to use `findZeros()`.
+
+For instance, to find the price where supply  and demand are equal, apply `findZeros()` to the difference function:
+
+```{r  echo=TRUE}
+findZeros(excess_demand(price) ~ price)
+```
+Evaluating supply and demand at that price  shows that they are indeed equal:
+
+```{r echo=TRUE}
+demand(56.64)
+supply(56.64)
+```
+
+###  Practice
+
+`r etude::include_etude("Exercises/Computing/camel-lie-gloves.Rmd", "**MMAC Question 1.3.9**: ", package = "USAFAexercises")`
+
+
+Exercise:  find the zeros of the `sin()` function.
+
+- What happens if the explanatory variable is not the same in the two functions?
+- For such  a plot to be meaningful, we have to  have both  functions produce the same kind of output. For instance ...
+
+## Zeros in contour plots
+
+Suppose you have a function of two variables and want to find values for the inputs that produce a given output value. For instance, let's look for inputs to the `terrain()` function (from previous sections) which produce an output of 1500 ft. This is easy using `contour_plot()`.  Since `terrain()` gives an output with  units *thousands of feet*, we just need to draw the contour at 1.5.
+
+```{r echo=TRUE}
+contour_plot(
+  terrain(latitude, longitude) ~ latitude + longitude,
+  domain(longitude = c(-99, -106 ), latitude = c(33, 43)), 
+  contours_at = 1.5       
+)
+```
+
+## Exponentials etc.
+
+There's not much to say about the exponential, sine, cosine, and log functions.  In R they correspond to `exp()`, `sin()`, `cos()`, and `log()` respectively.
+
+* The argument to `sin()` and `cos()` (and other trigonometric functions) is always given in *radians* rather than degrees. If you  have an input specified in degrees,  you'll have to convert it to radians. For fun, we'll write the conversion function here:
+
+```{r echo=TRUE}
+degrees_to_radians <- makeFun(
+  degrees * pi / 180 ~ degrees
+)
+```
+
+## Function inverses and monotonicity
+
+The *inverse* of a function $f()$ is another function $g()$ (sometimes $g()$ is named $f^{-1}()$) such that applying $g()$ to the output of $f()$ produces whatever the original input to $f()$ was.
+
+To illustrate, `exp()` and `log()` are inverse functions. For example, using 3  as the input:
+
+```{r echo=TRUE}
+log(exp(3))
+exp(log(3))
+```
+
+In contrast, `sin()` and `cos()` are *not* inverses of each other, as demonstrated this way:
+```{r echo=TRUE}
+sin(cos(3))
+cos(sin(3))
+```
+
+Given a function $f()$, it's easy to plot the inverse. Let's look at this function:
+
+```{r}
+f <- rfun( ~ x, n = 3, seed= 101)
+slice_plot(f(x) ~ x, domain(x = c(-5, 5)), label_text = "f(x)") 
+```
+
+To plot the inverse of $f()$  you just need to flip the  horizontal and vertical axes,  like this:
+
+```{r echo=TRUE}
+slice_plot(f(x) ~ x, domain(x = c(-5, 5))) %>%
+  gf_refine(coord_flip())
+```
+To evaluate the inverse, choose the point you want on the *horizontal* axis and read up to the value of the function according to the vertical axis.
+
+A mathematician would point out that this flipped graph shows that $f()$  does not have an inverse; the flipped graph fails the "vertical line" test. The mathematical definition of a function requires that the function have only one possible output for any value of the input.
+
+Computing functions, however, don't necessarily respect that definition. Certainly,  function  like `exp()` or `sin()` which  implement mathematical function will always produce the same output for any given input. You can confirm this by running the expressions in the code block over and over again. But the functions `runif()` and `date()` don't have this unique-output feature.
+
+
+```{r R-syntax-sandbox1, exercise=TRUE, exercise.cap="Run this more than once.", exercise.setup="R-syntax-sandbox1-setup", exercise.eval=FALSE, exercise.lines=5, exercise.completion=FALSE, exercise.startover=TRUE, exercise.diagnostics=TRUE}
+exp(2)
+sin(3)
+runif(1)
+date()
+
+```
+
+### Practice
+
+`r etude::include_etude("Exercises/Computing/octopus-know-bottle.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
+
+
+
 
