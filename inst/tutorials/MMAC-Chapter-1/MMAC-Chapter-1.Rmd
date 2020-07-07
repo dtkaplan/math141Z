@@ -1,0 +1,161 @@
+---
+title: "Computing in 141Z"
+subtitle: "MMAC Chapter 1"
+output: learnr::tutorial
+tutorial:
+  id: "MMAC-Ch-1"
+  version: 0.1
+runtime: shiny_prerendered
+date: ""
+tags: [MMAC, second, third]
+id: R-syntax
+---
+
+```{r include= FALSE}
+# In the document context to handle the pre-rendered chunks
+library(mosaic)
+library(mosaicCalc)
+```
+
+```{r include = FALSE, context="server"}
+# Note the context="server". That's so that the question_ui_initialize methods from etude will be registered.
+library(mosaic)
+library(mosaicCalc)
+library(ggformula)
+library(math141Z)
+library(etude)
+library(learnr)
+library(gradethis)
+library(submitr)
+library(basket)
+library(USAFAexercises)
+etude::show_answers(FALSE)
+
+
+learnr::tutorial_options(exercise.timelimit = 60,
+                 exercise.checker = gradethis::grade_learnr)
+```
+
+```{r echo=FALSE}
+submitr::login_controls()
+```
+
+```{r context="server", echo = FALSE}
+options(tutorial.storage = "none")
+vfun <- basket::check_valid
+  #submitr::make_basic_validator(NULL, "hello")
+storage_actions <- submitr::record_gs4("1w3fEld2rZlR_6FuzvkA-viOLBA5JdqD3xHl-LuLX3-Y", "statprep.annie@gmail.com", vfun)
+  # submitr::record_local("./minimal_submissions.csv")
+submitr::shiny_logic(input, output, session, vfun,
+                     storage_actions)
+```
+
+
+##  MMAC Chapter 1
+
+This tutorial covers the R commands used in  Chapter 1 of Kilty and McAllister's *Mathematical Modeling and Applied Calculus*.  You can ignore the "Working in RStudio" sections in the book itself. 
+
+In this tutorial, you  will learn
+
+* How to implement a mathematical formula as an R function.
+* How to draw graphs of functions with one input.
+* How to draw graphs of functions with two inputs.
+* How to solve simultaneous equations graphically.
+* How to direct the computer to solve simultaneous equations numerically.
+* How to show inverse functions graphically. (flip_coord)
+* The R functions implementing exponential, logarithmic, sine and cosine relationships.
+* How to make graphics with semi-log and log-log axes.
+
+The new R functions you will see  are:
+
+- `makeFun()` -- turns a tilde-expression into a function
+- `slice_plot()` -- graphs a function with one input
+- `domain()` -- sets the extent of the $x$ axis (the "domain")
+- `c()` -- collects its argument together into a <span title="A vector is a collection of two or more numbers." style="text-decoration: underline">vector</span>.
+- `contour_plot()` -- graphs a function with two inputs
+- `findZeros()` -- finds solutions numerically
+- `gf_refine()` -- adds selected refinements to plots
+- `coord_flip()` -- flips the $x$ and $y$ axes in a plot.  
+- `exp()`, `log()`,  `sin()`, `cos()` -- the R implementation of the <span title="eponymous means 'the thing that gives its name to something'" style="text-decoration: underline">eponymous</span> mathematical functions.
+
+Make sure to review the **R Syntax** tutorial [IN DRAFT: GIVE LINK] before starting this tutorial. 
+
+## Formulas to functions
+
+A formula is a mathematical expression that describes an arithmetic calculation. For example, $m c^2$ is a formula introduced by Albert Einstein to describe the energy of a particle as a function of mass and the speed of light.
+
+Math textbooks love to write functions using $x$ and $y$, for instance,
+
+$$y =  5 + 2 x . $$
+
+In this traditional notation, the formula is on the right-hand side of `=`. The $y$ on the left-hand side of `=` is more or less meaningless. There is nothing explicit in the notation to say what the input(s) are to the function.
+
+In the MMAC textbook, they use this traditional notation often. In our own notes, we will use a better mathematical notation:
+
+$$f(x) \equiv 5 + 2 x .$$
+You may wonder what makes this notation better. Clearly, it is more verbose. But that provides some advantages:
+
+- the function is given a name, in this case $f$.
+- the argument(s) to the function are explicitly identified by the names included in the parentheses.
+- using $\equiv$ rather than $=$ reminds us that this is a definition of $f$, rather than a statement that the left side happens to be equal to the right side.
+
+Consider Einstein's energy formula. The function based on  this formula could be written:
+
+$$E(m)  \equiv m c^2 .$$
+Notice  that $E$ is simply a function of $m$. That's because the speed of light is *constant*, roughly 300,000km per second.
+
+Let's implement $E(m)$ as an R function. We'll do this with a tilde expression that specifies not only the formula ($m c^2$) but which of the symbols in the formula are variables and which not. The tilde expression for Einstein's energy function is
+
+    m * c^2 ~ m
+
+To transform the tilde expression into an R function, use `makeFun()`, like this:
+
+```{r}
+E <- makeFun(m * c^2 ~ m)
+```
+
+You might wonder how the function `E()` knows the value of `c`. That's a topic for Chapter 2.
+
+Finally, a small reminder. Traditional mathematical notation uses very extensively one-letter names, like $E$ or $x$ or $y$.  With computer notation, you can often be more effective by selecting names that remind you of what the thing you're creating is for. For instance, perhaps better to have created a function `mass_energy()` rather than `E()`, like this:
+
+```{r}
+mass_energy <- makeFun(mass * speed_of_light^2 ~ mass)
+```
+
+### Practice
+
+`r etude::include_etude("Exercises/Computing/child-leave-coat.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
+
+`r etude::include_etude("Exercises/Computing/doe-stand-magnet.Rmd", "**MMAC 1.1.81**: ", package = "USAFAexercises")`
+
+## Graphing functions of one variable
+
+[This section replaces the "Working in RStudio" box on p. 14 of the MMAC book.]
+
+The `slice_plot()` function makes graphs of mathematical functions with a single input. As you know, it's conventional to draw the graph with the function input on the horizontal axis and the function output on the vertical axis.
+
+When making a graph, you need to choose what region of the number line the horizontal axis should cover. This region is called the *domain* of the graphic. Many mathematical functions have function domains that cover the whole number line (that is, $-\infty$ to $+\infty$) or the positive half of the number line (that is, 0 to $+\infty$). But even though you can legitimately evaluate the mathematical function at any point in its function domain, it's not possible to draw a graph that runs to $-\infty$ or $+\infty$. (Imagine how big the computer screen would have to be! Even a screen the size of the galaxy wouldn't do it.) So, you have to make choices of the part of the function domain that is to be included in the graphic domain. Typically this choice is based on context: the region of interest.
+
+The `domain()` function is used within `slice_plot()` to set the graphic domain. Here's an example:
+
+```{r echo=TRUE}
+slice_plot(tanh(x) ~ x, domain(x = c(-2,4)))
+```
+
+Just FYI, the mathematical $\tanh()$ is called the "hyperbolic tangent" or, for short, pronounced "tanch" which rhymes with "branch." It is an example of a "sigmoidal function," so called because it has a double bend similar to the one in the letter "S."
+
+Let's take apart the how `slice_plot()` is used.
+
+- `slice_plot()` takes two arguments. The first is a tilde expression of exactly the same sort as used in `makeFun()`. The second is the domain, as produced by the `domain()` function.
+
+- `domain()` itself takes arguments. Here, since there is only one input variable in the function, there is a single argument: a named argument with the same name as used on the right-hand side of the tilde expression. The *value* of that named argument is a pair of numbers: one specifying the left side of the graphic domain, the other specifying the right side. In our example, the argument is `x = c(-2, 4)`, setting the graphic domain to be $-2 \leq x \leq 4$. (Domains are often written in a different notation. In that notation, the domain would be written $x \in [-2, 4]$.)
+
+- `c()` does something simple but essential. It collects the two numbers--here $-2$ and $4$--into a single package. That two-number package becomes the argument `x`, allowing you to specify both ends of the graphic domain at once. Some people prefer to use the `range()` function, which is another way of producing a package of two numbers. Either will work fine.
+
+### Practice
+
+`r etude::include_etude("Exercises/Computing/owl-choose-roof.Rmd", "**MMAC Question 1.1.8**: ", package = "USAFAexercises")`
+
+##
+
+

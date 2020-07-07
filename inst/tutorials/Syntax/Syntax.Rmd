@@ -11,7 +11,7 @@ tags: [arithmetic, second, third]
 id: R-syntax
 ---
 
-```{r include = FALSE}
+```{r include = FALSE, context="server"}
 # Note the context="server". That's so that the question_ui_initialize methods from etude will be registered.
 library(mosaic)
 library(mosaicCalc)
@@ -285,10 +285,31 @@ knitr::include_graphics("images/tilde.png")
 
 `r etude::include_etude("Exercises/Computing/giraffe-dream-coat.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
 
+## Writing about R functions
 
+This is a course on calculus, and calculus is all about functions. We will be talking about *mathematical* functions a lot.  Since we're using a computer to implement the operations and computations of calculus, we will also be talking about *computer* functions a lot. We need to be clear  about the distinction, but it will be tedious to  use the words "mathematical" and "computer" over and over again.
 
+There's a deeper problem. As you saw in the above, computer science makes a sensible distinction between a (computer) function itself  and the application of that function to arguments. But the mathematical notation used in algebra and calculus textbooks typically does not. For instance, you might see $y = \sin x$. Is that saying that the number $y$ is equal to the result of applying the $\sin$ function to a numerical value $x$? Is it saying that "we will name by $y$ the function $\sin$ which takes an argument named $x$.
 
+We will use three conventions to make it easy to distinguish among  the possibilities.
 
+- We will use *italics* with traditional mathematical notation involving variables like $x$ and $y$ and functions like $\sin$.
+- We will use `typewriter` script for computer names and functions.
+- When we are talking about a function we will follow the function name with a pair of parentheses, for instance $\sin()$ and `sin()`.
+
+Remember that the parentheses are not part of the function name. The names themselves are $\sin$ and `sin`. We are adding the parentheses merely as a reminder to the human reader that the thing we are naming is a function.
+
+Without these conventions, we would be forced to write sentences like, 
+
+> The computer function sin implements the mathematical function sin. 
+
+That sentence reads like it is about the moral flaws of mathematical and computer functions, which is distracting from its true meaning.
+
+Instead, we can write, unambiguously and compactly,
+
+> `sin()` implements $\sin()$.
+
+But remember, the *names* of the functions are `sin` and $\sin$ respectively.
 
 
 
