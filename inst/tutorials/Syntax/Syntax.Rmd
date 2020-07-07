@@ -54,7 +54,6 @@ The aspects of R syntax that you will learn in this tutorial are:
 - using **names**
 - application of **functions** to **arguments**
 - creating and using **tilde-expressions**, also called "formulas."
-- the helpful use of **blank space**
 
 ##  Basic arithmetic
 

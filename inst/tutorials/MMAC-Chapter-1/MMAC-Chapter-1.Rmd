@@ -156,6 +156,88 @@ Let's take apart the how `slice_plot()` is used.
 
 `r etude::include_etude("Exercises/Computing/owl-choose-roof.Rmd", "**MMAC Question 1.1.8**: ", package = "USAFAexercises")`
 
-##
+## Functions with two or more inputs
 
+You can use `makeFun()` to turn mathematical formulas with two or more inputs into functions. It's all a matter of the tilde expression. On the right side of the tilde, list the names of all the inputs, separating them by  `+`. Like this example, from Example 1.2.10 of the MMAC textbook for a function
+
+$$f(x, y, z) \equiv x^2 + 7y - z .$$
+
+```{r echo=TRUE}
+f <- makeFun(x^2 + 7*y - z ~ x + y + z)
+```
+
+Remember that on the right side of the tilde, `x + y  + z` here, the `+` symbol means simply "and" or "as well as," not mathematical addition. Some people prefer to use `&` rather than `+` to avoid giving the wrong impression. That's fine.
+
+On the left side of the tilde, `x^2 + 7*y - z` here, the symbols `+`, `^`, `*`, and `-` do have exactly their ordinary arithmetic meaning.
+
+Plotting a function of two variables can be done in several ways. In these note (and in the MMAC book), we prefer to use a contour-plot format. Contour plots are produced by `contour_plot()` which takes two arguments:
+
+1. A tilde expression with two variables on the right of the tilde, e.g. `x + y` or `capital + labor`.
+2. A domain produced by `domain()` used with two arguments, one for each of the inputs listed in the tilde expression.
+
+For instance, consider the function 
+
+$$g(x, y) \equiv 5 - x - y/2$$
+and suppose we want to plot it over the domain $-5 \leq x \leq 5$ and $-7 \leq y \leq 7$. You can accomplish this with
+
+```{r echo=TRUE}
+contour_plot(
+  5 - x - y/2 ~ x + y,
+  domain(x = c(-5,5), y = c(-7, 7))
+  )
+```
+
+Since the tilde expression and the `domain()` specification are typographically long, for clarity I've put each of the two arguments to `contour_plot()` on it's own line. Notice that the two arguments are separated by a comma in the usual fashion. Notice as well that the closing function-application  parenthesis for `contour_plot()` is on its own line. Such formatting is helpful for the human reader and works well with R. 
+
+Recall that in a contour plot, each individual contour shows the set of inputs at which the *output* of the function is a certain level that's labeled on the contour. The levels displayed in the plot are, by default, selected by `contour_plot()` to give a fair display of the range of function outputs over the graphic domain of the plot. To keep the plot from becoming overburdened with labels, `contour_plot()` will omit some of the labels. So in the example above, the contours are for function outputs of -2, 0, 2, 4, 6, 8, 10, and 12. But there are labels only for -2, 2, 6, and 10.
+
+Sometimes you will want to choose for yourself the output levels at which a contour will be drawn and label every contour rather than skipping. You can accomplish this by giving additional named arguments to `contour_plot()`, for instance:
+
+```{r echo=TRUE}
+contour_plot(
+  5 - x - y/2 ~ x + y,
+  domain(x = c(-5,5), y = c(-7, 7)),
+  contours_at = c(0, 3, 6, 9, 12),
+  skip = 0
+  )
+```
+
+By default, `contour_plot()` uses two modes to display the function: the contours as well as a color fill where the color indicates the output value at each point. This works pretty well on a computer display, but occasionally you may want to turn off the fill. To accomplish this, use the `filled = FALSE` named argument.
+
+```{r echo=TRUE}
+contour_plot(
+  5 - x - y/2 ~ x + y,
+  domain(x = c(-5,5), y = c(-7, 7)),
+  contours_at = c(0, 3, 6, 9, 12),
+  skip = 0,
+  filled = FALSE
+  )
+```
+
+
+### Practice
+
+`r etude::include_etude("Exercises/Computing/giraffe-sing-magnet.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
+
+## Surface plots
+
+Occasionally, it's helpful to display a function of two variables as if it were a three-dimensional object with the two inputs constituting two of the dimensions and the output represented by the third dimension. When the function is smooth, the output will a surface suspended above the input axes, analogous to an awning suspended over the two dimensions of a backyard patio.
+
+Surface plots can be cool looking, but they can be hard to interpret quantitatively and it's practically impossible to compare two or more functions in surface plots. That's why we mostly use contour plots in displaying functions of two variables.
+
+To make a surface plot, use the  `interactive_plot()` function, which takes a tilde expression and a graphic domain as arguments, just like `contour_plot()`.
+
+```{r}
+set.seed(102)
+tmp <- mosaic::rfun( ~ latitude + longitude, n = 3)
+terrain <- makeFun(tmp(latitude - 38, longitude + 104) ~ latitude + longitude)
+```
+
+```{r echo=TRUE}
+interactive_plot(
+  terrain(latitude, longitude) ~ latitude + longitude,
+  domain(latitude = c(33, 43), longitude = c(-99, -106 ))
+  )
+```
+Surface plots are much easier to interpret if you can rotate them. Use your mouse or trackpad to do this.
 
