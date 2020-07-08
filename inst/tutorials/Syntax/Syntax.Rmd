@@ -231,8 +231,8 @@ Each of these functions happens to take a number as input and produces a number 
 The syntax of applying a function to an argument is always the same and always involves an opening and a closing parenthesis.
 
 $$\mbox{function_name} \left( \mbox{argument} \right)$$
-There are *only* two contexts in R that involve parentheses used correctly in an expression. 
-1. Arithmetical grouping, as in `(3 + 2) / 4`.
+There are *only* two contexts in R that involve parentheses used correctly in an expression.  
+1. Arithmetical grouping, as in `(3 + 2) / 4`.  
 2. Applying a function to an argument.
 
 Whenever you see a name followed by an opening parenthesis, you know that the name refers to a function.
@@ -241,7 +241,7 @@ Many functions have more than one argument. When there are multiple arguments, t
 
 Functions often have *named arguments*. This is useful when there are many possible arguments, some of which will have default values to reflect the typical use. As an example,  consider the `log` function, which takes a single numerical argument but also accepts a named argument to set the "base" of the log.
 
-```{r}
+```{r echo=TRUE}
 log(100)
 log(100, base = 10)
 log(100, base = 2)
