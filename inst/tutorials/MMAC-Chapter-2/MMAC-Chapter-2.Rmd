@@ -63,7 +63,7 @@ As you know, the contemporary world is awash in data. Modern logistics and organ
 
 In the last few years, the range of technologies and techniques relating to managing and drawing useful information from data have come together under the name "data science." Many universities are putting together programs in data science, often involving collaboration between statistics and computer-science faculty. It's highly likely that you will have to gain data-science skills in your professional life.
 
-This is a calculus course, so it's not appropriate to focus too closely on data science. However, many of the real-world problems apply calculus concepts to the patterns <span title="Latent means existing but not yet developed or manifest; hidden or concealed." style="text-decoration: underline">latent</span> in data. Indeed, the origins of Math 141Z stem from a project that started more than 15 years ago to re-orient calculus to statistics. (There was no field called "data science" 15 years ago!)
+This is a calculus course, so it's not appropriate to focus too closely on data science. However, many  real-world problems apply calculus concepts to the patterns <span title="Latent means existing but not yet developed or manifest; hidden or concealed." style="text-decoration: underline">latent</span> in data. Indeed, the origins of Math 141Z stem from a project that started more than 15 years ago to re-orient calculus to statistics. (There was no field called "data science" 15 years ago!)
 
 You can see the statistical roots of the calculus project in the choice of R for computing. R is famously associated with data science. But it is a good general-purpose programming language and so perfectly well suited to calculus computing as well as statistics.
 
@@ -83,7 +83,10 @@ A data frame is a column and row organization, like a spreadsheet. Each column i
 
 ```{r echo=FALSE, eval=FALSE}
 library(dplyr)
-# Setting up the Google Global Mobility data frame"
+# Setting up the Google Global Mobility data frame 
+# so that it can be accessed from a file that goes along
+# with the tutorial. That way, we don't need to do the 
+# work every time the tutorial is run. 
 file_name <- "/Users/kaplan/Downloads/Global_Mobility_Report.csv"
 Mobility <- readr::read_csv(file_name)
 
@@ -144,6 +147,72 @@ Since our main focus is on calculus, you will access the data you need for this 
 
 Typically, the data-consuming R functions that you will use will have an argument where you specify the name of the relevant data frame. The argument will look like `data = US_mobility`
 
+### Practice
+
+The examples and exercises in the MMAC textbook refer to many data frames by name. In the sandbox below, you can try out a few simple R functions that provide information about variable names, the number of rows, and provide a quick glimpse at the data that helps remind you whether variables are numerical or categorical. You can sort out from the names of the functions what each one does: `names()`, `nrow()`, `glimpse()`.  Each of these functions takes a data frame as input. 
+
+
+```{r R-syntax-sandbox3, exercise=TRUE, exercise.cap="Sandbox", exercise.eval=FALSE, exercise.lines=2, exercise.completion=FALSE, exercise.startover=TRUE, exercise.diagnostics=TRUE}
+
+```
+
+
+```{r R-syntax-QA1, echo=FALSE}
+etude::choose_one(
+  prompt = "How many variables are in `HealthExpenditure`?",
+  choices = c(1, "+2+", 3, 4, 5),
+  random_answer_order = FALSE
+)
+```
+
+```{r R-syntax-QA2, echo=FALSE}
+etude::choose_one(
+  prompt = "Which of these are (correctly spelled) names of the variables in `HealthExpenditure`? (Select all that apply.)",
+  choices = c("`year`", "`gdp`", "`percent gdp`", "+`PercentGDP`+", "`age`", "`State`", "`county`", "+`Year`+"),
+  allow_retry = FALSE,
+  inline = FALSE
+)
+```
+
+```{r R-syntax-QA3, echo=FALSE}
+etude::choose_one(
+  prompt = "In the `WeightChange` data frame, roughly how big (in absolute value) are the values of the `Weight` variable?",
+  choices = c("Less than 1" , "+Between zero and 15+", "Greater than 20", "Greater than 100"),
+  random_answer_order = FALSE
+)
+```
+
+It's important to know exactly what the variables in a data frame stand for. Documentation for data frames is usually kept in a separate document, called a "codebook."
+
+You can access the data documentation for the data frames we will be using with the `?`*name_of_frame* command. Like this:
+
+
+```{r R-syntax-sandbox4, exercise=TRUE, exercise.cap="Data documentation",  exercise.eval=FALSE, exercise.lines=2, exercise.completion=FALSE, exercise.startover=TRUE, exercise.diagnostics=TRUE}
+?WeightChange
+```
+
+```{r R-syntax-QA5, echo=FALSE}
+# indicate correct choices with +_+ in the name of the list item.
+etude::choose_one(
+  prompt = "What is the *unit of observation* in the `WeightChange` data frame? (Hint: It's not stated explicitly in the documentation, but there's enough information given to figure it out.)",
+  choices = list(
+    "a woman" = "All the rows are about the same woman.",
+    "+a day+" = "",
+    "a weight gain (or loss)" = 
+      "`Weight` is one of the variables, not the meaning of a row.")
+)
+```
+
+
+
+```{r R-syntax-QA6, echo=FALSE}
+etude::choose_one(
+  prompt = "There are two variables in the `Hawaii` data frame. What are their units?",
+  choices = c("days and feet", "+hours and feet+", "hours and meters", "minutes and millimeters"  )
+)
+```
+
+
 ## Relating one data variable to another
 
 You will be using tilde expressions with  the names of the variables that you want to relate. For instance, the graph of the Covid-19 data uses a tilde expression
@@ -154,6 +223,27 @@ which for the plotting function means that we want to plot the value of the `ret
 
 Your tilde expressions will often involve the use of other names as well such as `exp()`, `cos()`,  and parameter names such as `m`, `b`, `P`, `A`. (If you're not yet sure what a parameter is, just wait. Finding suitable parameters for models is much of what MMAC Chapter 2 is about.)
 
+### Practice
+
+
+
+
+```{r R-syntax-QA7, echo=FALSE}
+etude::choose_one(
+  prompt = "Looking at the `HealthExpenditure` data frame, what tilde-formula would you use to specify \"how expenditures change over the years\"?",
+  choices = list(
+    "+`PercentGDP ~ Year`+" = "",
+    "`Year ~ PercentGDP`" = "That's got it backwards.",
+    "`expenditures ~ years`" = 
+      "Those aren't variable names in `HealthExpenditure`.",
+    "`expend ~ year" = 
+      "Those aren't variable names in `HealthExpenditure`."
+  ),
+  inline = FALSE
+)
+```
+
+
 ## Making simple plots of data
 
 A typical data plot you will make will be constructed by a command like this:
@@ -161,3 +251,42 @@ A typical data plot you will make will be constructed by a command like this:
     gf_point(yvar ~ xvar, data = name_of_frame)
     
 Simple.
+
+### Practice
+
+Use the  sandbox to generate the plots you need to answer the questions that follow.
+
+```{r R-syntax-sandbox5, exercise=TRUE, exercise.cap="Plots of data", exercise.eval=FALSE, exercise.lines=2, exercise.completion=FALSE, exercise.startover=TRUE, exercise.diagnostics=TRUE}
+
+```
+
+```{r R-syntax-QA8, echo=FALSE}
+etude::choose_one(
+  prompt = "How many distinct peaks are there in the first 24 hours of the `Hawaii` tidal data?",
+  choices = c(0, 1, "+2+", 3, 4, 12, 24),
+  random_answer_order = FALSE
+)
+```
+
+```{r R-syntax-QA9, echo=FALSE}
+etude::choose_one(
+  prompt = "Using the `HealthExpenditure` data, which description of what happened around year 2000 best matches the data.",
+  choices = c(
+    "+A sudden increase in expenditures started that lasted about 3 years.+",
+    "The expenditure that had been steadily increasing leveled off starting at about year 2000.",
+    "There's no evident change during the years before and after 2000."
+  ),
+  inline = FALSE
+)
+```
+
+```{r R-syntax-C1, echo=FALSE}
+essay_response(
+  prompt = "Pick **one** of the following data frames and, using the documentation for that data frame, explain briefly in your own words what it's about. `RunningSpeed`, `SwimmingSpeed`, `ToyotaMonthly`. You can use the sandbox below to find the documentation."
+)
+```
+
+```{r R-syntax-sandbox6, exercise=TRUE, exercise.cap="Look at the data frame's codebook.", exercise.eval=FALSE, exercise.lines=2, exercise.completion=FALSE, exercise.startover=TRUE, exercise.diagnostics=TRUE}
+
+```
+
