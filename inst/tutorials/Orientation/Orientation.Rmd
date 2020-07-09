@@ -11,7 +11,7 @@ tags: [first, second, third]
 id: starting_with_R
 ---
 
-```{r include = FALSE}
+```{r include = FALSE, context = "setup"}
 # Note the context="server". That's so that the question_ui_initialize methods from etude will be registered.
 library(mosaic)
 library(mosaicCalc)
@@ -22,7 +22,6 @@ library(learnr)
 library(gradethis)
 library(submitr)
 library(basket)
-library(USAFAexercises)
 
 
 learnr::tutorial_options(exercise.timelimit = 60,
@@ -41,6 +40,11 @@ storage_actions <- submitr::record_gs4("1w3fEld2rZlR_6FuzvkA-viOLBA5JdqD3xHl-LuL
   # submitr::record_local("./minimal_submissions.csv")
 submitr::shiny_logic(input, output, session, vfun,
                      storage_actions)
+```
+
+```{r context="server", echo = FALSE}
+# library(gradethis)
+# library(etude)
 ```
 
 ## Welcome
@@ -124,7 +128,15 @@ etude::essay_response(
 
 When you are logged in to the document, all your answers will be saved to the 141Z instructors' database. This applies as well to the code when you press "Submit" in a code box.
 
-If you are working on an assignment and think better of an answer that has already been submitted, just submit the new answer again. 
+If you are working on an assignment and think better of an answer that has already been submitted, just submit your new answer.
+
+In all multiple-choice and essay questions, there will be a "Submit" button. You press this (of course!) to submit your answer. **Caution**: It's easy to forget to press submit, in which case your answer won't  be recorded. Each time you  press submit, you will get some feedback from the system, typically in a little green, yellow, or red box. Get in the habit of looking for this feedback. 
+
+It's particularly easy to forget to press "Submit" for code blocks, because those blocks also have a "Run code" button. "Run code" sends the code-block contents to R which then returns the result of the calculation. Other than this, there is no feedback of the sort you would see for multiple-choice and essay questions. 
+
+Pressing "Submit" from a code block will produce feedback. So get in the habit of looking for the feedback to make sure that anything that needs to be submitted will be.
+
+Some code blocks will not have a "Submit" button. That's (usually) intensional on our part.
 
 Underneath the table of contents is a small button labeled "Start over." This will erase the display of your previous answers in case you want to start over from a blank document, for instance to quiz yourself if you are studying for an exam.
 

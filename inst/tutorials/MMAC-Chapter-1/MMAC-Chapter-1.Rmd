@@ -17,8 +17,9 @@ library(mosaic)
 library(mosaicCalc)
 ```
 
-```{r include = FALSE, context="server"}
-# Note the context="server". That's so that the question_ui_initialize methods from etude will be registered.
+```{r include = FALSE, context="setup"}
+# Note the context="setup". That's so the packages
+# are available both at compile time and run time 
 library(mosaic)
 library(mosaicCalc)
 library(ggformula)
@@ -28,7 +29,7 @@ library(learnr)
 library(gradethis)
 library(submitr)
 library(basket)
-library(USAFAexercises)
+library(math141Zexercises)
 etude::show_answers(FALSE)
 
 
@@ -124,9 +125,9 @@ mass_energy <- makeFun(mass * speed_of_light^2 ~ mass)
 
 ### Practice
 
-`r etude::include_etude("Exercises/Computing/child-leave-coat.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/child-leave-coat.Rmd", "**Practice 1**: ", package = "math141Zexercises")`
 
-`r etude::include_etude("Exercises/Computing/doe-stand-magnet.Rmd", "**MMAC 1.1.81**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/doe-stand-magnet.Rmd", "**MMAC 1.1.81**: ", package = "math141Zexercises")`
 
 ## Graphing functions of one variable
 
@@ -154,7 +155,7 @@ Let's take apart the how `slice_plot()` is used.
 
 ### Practice
 
-`r etude::include_etude("Exercises/Computing/owl-choose-roof.Rmd", "**MMAC Question 1.1.8**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/owl-choose-roof.Rmd", "**MMAC Question 1.1.8**: ", package = "math141Zexercises")`
 
 ## Functions with two or more inputs
 
@@ -219,7 +220,7 @@ contour_plot(
 
 ### Practice
 
-`r etude::include_etude("Exercises/Computing/giraffe-sing-magnet.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/giraffe-sing-magnet.Rmd", "**Practice 1**: ", package = "math141Zexercises")`
 
 ## Surface plots
 
@@ -247,7 +248,7 @@ Surface plots are much easier to interpret if you can rotate them. Use your mous
 
 ### Practice
 
-`r etude::include_etude("Exercises/Computing/doe-bid-vase.Rmd", "**MMAC Question 1.2.6*: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/doe-bid-vase.Rmd", "**MMAC Question 1.2.6*: ", package = "math141Zexercises")`
 
 
 ## Graphing two functions together
@@ -307,7 +308,7 @@ supply(56.64)
 
 ###  Practice
 
-`r etude::include_etude("Exercises/Computing/camel-lie-gloves.Rmd", "**MMAC Question 1.3.9**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/camel-lie-gloves.Rmd", "**MMAC Question 1.3.9**: ", package = "math141Zexercises")`
 
 
 Exercise:  find the zeros of the `sin()` function.
@@ -386,7 +387,7 @@ date()
 
 ### Practice
 
-`r etude::include_etude("Exercises/Computing/octopus-know-bottle.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/octopus-know-bottle.Rmd", "**Practice 1**: ", package = "math141Zexercises")`
 
 
 

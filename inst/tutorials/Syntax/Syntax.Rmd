@@ -11,7 +11,7 @@ tags: [arithmetic, second, third]
 id: R-syntax
 ---
 
-```{r include = FALSE, context="server"}
+```{r include = FALSE, context="setup"}
 # Note the context="server". That's so that the question_ui_initialize methods from etude will be registered.
 library(mosaic)
 library(mosaicCalc)
@@ -22,7 +22,7 @@ library(learnr)
 library(gradethis)
 library(submitr)
 library(basket)
-library(USAFAexercises)
+library(math141Zexercises)
 etude::show_answers(FALSE)
 
 
@@ -85,19 +85,19 @@ $e^{3}$              | `exp(3)`            | Don't confuse the mathematical numb
 
 These are drawn from Question 7 on p. 13 of MMAC textbook.
 
-`r etude::include_etude("Exercises/Computing/bee-write-closet.Rmd", "**MMAC 1.1.7a**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/bee-write-closet.Rmd", "**MMAC 1.1.7a**: ", package = "math141Zexercises")`
 
-`r etude::include_etude("Exercises/Computing/bee-write-closet2.Rmd", "**MMAC 1.1.7b**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/bee-write-closet2.Rmd", "**MMAC 1.1.7b**: ", package = "math141Zexercises")`
 
-`r etude::include_etude("Exercises/Computing/bee-write-closet3.Rmd", "**MMAC 1.1.7c**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/bee-write-closet3.Rmd", "**MMAC 1.1.7c**: ", package = "math141Zexercises")`
 
-`r etude::include_etude("Exercises/Computing/bee-write-closet4.Rmd", "**MMAC 1.1.7d**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/bee-write-closet4.Rmd", "**MMAC 1.1.7d**: ", package = "math141Zexercises")`
 
-`r etude::include_etude("Exercises/Computing/bee-write-closet5.Rmd", "**MMAC 1.1.7e**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/bee-write-closet5.Rmd", "**MMAC 1.1.7e**: ", package = "math141Zexercises")`
 
-`r etude::include_etude("Exercises/Computing/bee-write-closet6.Rmd", "**MMAC 1.1.7f**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/bee-write-closet6.Rmd", "**MMAC 1.1.7f**: ", package = "math141Zexercises")`
 
-`r etude::include_etude("Exercises/Computing/panda-dig-book.Rmd", "**Bonus**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/panda-dig-book.Rmd", "**Bonus**: ", package = "math141Zexercises")`
 
 ## Commands and expressions in R
 
@@ -201,9 +201,9 @@ The sandbox below provides a place for you to try out expressions. Think of this
 ```
 
 
-`r etude::include_etude("Exercises/Computing/crocodile-drive-pants.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/crocodile-drive-pants.Rmd", "**Practice 1**: ", package = "math141Zexercises")`
 
-`r etude::include_etude("Exercises/Computing/cow-talk-piano.Rmd", "**Practice 2**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/cow-talk-piano.Rmd", "**Practice 2**: ", package = "math141Zexercises")`
 
 
 ## Function evaluation
@@ -253,9 +253,9 @@ Note the use of the `=` symbol. That is the way to assign a value to the particu
 
 ### Practice
 
-`r etude::include_etude("Exercises/Computing/rabbit-bite-scarf.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/rabbit-bite-scarf.Rmd", "**Practice 1**: ", package = "math141Zexercises")`
 
-`r etude::include_etude("Exercises/Computing/deer-dive-car.Rmd", "**Practice 2**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/deer-dive-car.Rmd", "**Practice 2**: ", package = "math141Zexercises")`
 
 ## Tilde expressions
 
@@ -282,7 +282,7 @@ knitr::include_graphics("images/tilde.png")
 
 ### Practice
 
-`r etude::include_etude("Exercises/Computing/giraffe-dream-coat.Rmd", "**Practice 1**: ", package = "USAFAexercises")`
+`r etude::include_etude("Exercises/Computing/giraffe-dream-coat.Rmd", "**Practice 1**: ", package = "math141Zexercises")`
 
 ## Writing about R functions
 

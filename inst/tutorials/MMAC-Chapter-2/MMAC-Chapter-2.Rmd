@@ -1,0 +1,163 @@
+---
+title: "Computing in 141Z"
+subtitle: "MMAC Chapter 2"
+output: learnr::tutorial
+tutorial:
+  id: "MMAC-Ch-1"
+  version: 0.1
+runtime: shiny_prerendered
+date: ""
+tags: [MMAC, second, third]
+id: R-syntax
+---
+
+```{r include=FALSE}
+# Just needed at compile time.
+library(DT)
+```
+
+
+```{r include = FALSE, context="setup"}
+# Note the context="setup". That's so the packages
+# are available both at compile time and run time 
+library(mosaic)
+library(mosaicCalc)
+library(MMAC)
+library(ggformula)
+library(math141Z)
+library(etude)
+library(learnr)
+library(gradethis)
+library(submitr)
+library(basket)
+library(dplyr)
+library(math141Zexercises)
+load("data/US_mobility.rda")
+etude::show_answers(FALSE)
+
+
+learnr::tutorial_options(exercise.timelimit = 60,
+                 exercise.checker = gradethis::grade_learnr)
+```
+
+```{r echo=FALSE}
+submitr::login_controls()
+```
+
+```{r context="server", echo = FALSE}
+options(tutorial.storage = "none")
+vfun <- basket::check_valid
+  #submitr::make_basic_validator(NULL, "hello")
+storage_actions <- submitr::record_gs4("1w3fEld2rZlR_6FuzvkA-viOLBA5JdqD3xHl-LuLX3-Y", "statprep.annie@gmail.com", vfun)
+  # submitr::record_local("./minimal_submissions.csv")
+submitr::shiny_logic(input, output, session, vfun,
+                     storage_actions)
+```
+
+
+##  MMAC Chapter 2
+
+This tutorial introduces the R techniques and commands for working with data and fitting mathematical models to data.
+
+As you know, the contemporary world is awash in data. Modern logistics and organization, be they in the private commercial setting or the university or the military, rely on data bases. Scientific work collects and uses masses of data, relating to everything from genetics to sub-atomic physics, to remote sensing of land use, ocean level, or climate-change forced ice melting the Arctic Ocean.
+
+In the last few years, the range of technologies and techniques relating to managing and drawing useful information from data have come together under the name "data science." Many universities are putting together programs in data science, often involving collaboration between statistics and computer-science faculty. It's highly likely that you will have to gain data-science skills in your professional life.
+
+This is a calculus course, so it's not appropriate to focus too closely on data science. However, many of the real-world problems apply calculus concepts to the patterns <span title="Latent means existing but not yet developed or manifest; hidden or concealed." style="text-decoration: underline">latent</span> in data. Indeed, the origins of Math 141Z stem from a project that started more than 15 years ago to re-orient calculus to statistics. (There was no field called "data science" 15 years ago!)
+
+You can see the statistical roots of the calculus project in the choice of R for computing. R is famously associated with data science. But it is a good general-purpose programming language and so perfectly well suited to calculus computing as well as statistics.
+
+Usually calculus textbooks are completely naïve about the organization of data. They don't follow even the most basic principles laid out by data science. The MMAC textbook is better than most, but in the non-R part of the book every table that claims to present "data," violates one or more convention about the organization of data. Such presentation can contribute to the formation of bad habits.
+
+In the Math 141Z notes, we will be taking a professional, data-science approach to data. This includes the storage, organization, documentation, and visualization of data. Since this is a calculus course, we won't be taking a deep dive into data, just using it responsibly.
+
+The next section provides a brief introduction to basic modern principles of data and basic R techniques for working with data on the computer. 
+
+## Data basics
+
+There are many ways in which you interact with data, and data takes on many forms, including for example mp3 files, digital images, and such. The format we will be using for data is the most widely used in data science and is the basis for a data industry of hundreds of billions of dollars annually. It was invented in the 1960s but is so simple that you will think it obvious.
+
+The format is called a "data frame," but it is used in so many fields and disciplines and sectors of the economy that there are many other names for the format. It's closely related to the format used in spreadsheet software, but typical spreadsheet users violate many good data practices and so lose the full power of the data frame format.
+
+A data frame is a column and row organization, like a spreadsheet. Each column is a "variable" and each row is a "unit of observation."
+
+```{r echo=FALSE, eval=FALSE}
+library(dplyr)
+# Setting up the Google Global Mobility data frame"
+file_name <- "/Users/kaplan/Downloads/Global_Mobility_Report.csv"
+Mobility <- readr::read_csv(file_name)
+
+Mobility2 <- Mobility[ ,c(2, 5, 7,8,9,10,11,12,13)]
+names(Mobility2) <- c("country", "state", "date", "retail", "grocery", "parks", "transit", "workplace", "residential")
+US_mobility <- Mobility2 %>%
+  filter(country == "United States", !is.na(state))
+save(US_mobility, file="data/US_mobility.rda")
+```
+
+Consider as an example a data frame put together by Google and updated every day. The [Covid-19 Community Mobility Reports](https://www.google.com/covid19/mobility/data_documentation.html?hl=en) reports the level of several types of activity--retail, recreation, grocery shopping, and so on--compared to baseline. The baseline comes from the 5-week period Jan 3–Feb 6, 2020, before Covid-19 came to public attention. There is a different baseline for each day of the week, so Mondays are compared to the Monday baseline, Sundays to the Sunday baseline, and so on.
+
+The baseline is the median value, for the corresponding day of the week, during the 5-week period Jan 3–Feb 6, 2020. There is data for 135 different countries: Here is the data for the US (as of July 8, when these notes were written.), broken down by state. (You can use the search box to find a state of special interest to you.)
+
+```{r}
+DT::datatable(US_mobility)
+```
+
+[Citation: Google LLC "Google COVID-19 Community Mobility Reports".
+https://www.google.com/covid19/mobility/ Accessed: July-08-2020.]
+
+Notice that each variable has a name. Consider `grocery`. This gives the relative activity relating to grocery stores, pharmacies, etc. The values of that variable are numeric, so `grocery` is a *quantitative variable*. Now consider the variable `state`. You can see that the values are all in the form US-state_code, for instance `"US-AL"` or `"US-CO"`. Variables like `state` are called *categorical variables*. (We won't see much use of categorical variables in this calculus course. But they  are an essential part of data science.)
+
+The unit of observation in the data is "one state on one day." Every row has observations of several variables for one state on one day. Thus, every row is the same "kind of thing,"  a requirement for tidy data.
+
+In the next sections in this tutorial you will learn some basic skills for working with data in R, simple things like
+
+- how to access data
+- how to relate one variable to another
+- how to make simple plots of data
+
+You will not have to learn a lot about data science. But since you're looking at the data now, the next code box 
+will generate a plot of the day-by-day activity in `retail` for Colorado. We've included data manipulation statements (like `filter()`) that you will *not* be using in this course. But you can probably figure out for yourself how to customize the plot for a state of interest to you. (Hint: What features of the code make it specific to Colorado? How would you change these to make a graph for, say, California?)
+
+```{r R-syntax-sandbox1, exercise=TRUE, exercise.cap="Google mobility data for one state", exercise.setup="R-syntax-sandbox1-setup", exercise.eval=TRUE, exercise.lines=5, exercise.completion=FALSE, exercise.startover=TRUE, exercise.diagnostics=TRUE}
+US_mobility %>%
+  filter(grepl("CO$",  state)) %>%
+  gf_line(retail ~ date) %>%
+  gf_labs(title = "Colorado mobility")
+```
+
+A digression ... In the spirit of encouraging you to understand that you can often make sense of computer commands that you don't yet know, here is a graph that compares three states at once.
+
+```{r R-syntax-sandbox2, exercise=TRUE, exercise.cap="Google mobility data for several states", exercise.setup="R-syntax-sandbox1-setup", exercise.eval=TRUE, exercise.lines=5, exercise.completion=FALSE, exercise.startover=TRUE, exercise.diagnostics=TRUE}
+US_mobility %>%
+  filter(grepl("(FL|TX|NY)$",  state)) %>%
+  gf_line(retail ~ date, color = ~ state) 
+```
+What do you think determines which states are being plotted? Could you successfully change the states being shown? Could you plot more than 3 states at a time?
+
+A good attitude to have when learning computing is "Try it!" Feel free to experiment and don't be frustrated when an idea doesn't work out. (Please don't take this as a recommendation to "Try it!" in other activities, like learning to fly a plane. Computing is something that it's safe to do at home. Flying not so much.)
+
+## Accessing data frames
+
+Accessing and processing data is a major part of data science. For instance, in the Google Mobility data, the original data consisted of location reports from people's phones using Google Maps. The data-science staff at Google had to reduce this huge data set (where the unit of observation was "a person at a moment") about date/times, latitude, and longitude to figure out what kind of place--retail? park?--the person was visiting, what state they were in, and so on. Probably the original data had tens of billions of rows, whereas our state-on-a-day data set has only about 7500.
+
+Since our main focus is on calculus, you will access the data you need for this course simply by  using the name of a data frame. For instance, the plot in the previous section involves a data frame named `US_mobility`. You will be given the names of whatever data frame you need to work an example or a problem, and those data frame will be automatically available in code blocks in a tutorial document.
+
+Typically, the data-consuming R functions that you will use will have an argument where you specify the name of the relevant data frame. The argument will look like `data = US_mobility`
+
+## Relating one data variable to another
+
+You will be using tilde expressions with  the names of the variables that you want to relate. For instance, the graph of the Covid-19 data uses a tilde expression
+
+    retail ~ date
+    
+which for the plotting function means that we want to plot the value of the `retail` variable against the `date`.
+
+Your tilde expressions will often involve the use of other names as well such as `exp()`, `cos()`,  and parameter names such as `m`, `b`, `P`, `A`. (If you're not yet sure what a parameter is, just wait. Finding suitable parameters for models is much of what MMAC Chapter 2 is about.)
+
+## Making simple plots of data
+
+A typical data plot you will make will be constructed by a command like this:
+
+    gf_point(yvar ~ xvar, data = name_of_frame)
+    
+Simple.
