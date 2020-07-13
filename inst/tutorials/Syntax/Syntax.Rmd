@@ -63,7 +63,7 @@ Traditional          | R                   | comments
 --------------------:|:--------------------|:---------
 $160$                |  `160`              | 
 $1.6 \times 10^2$    | `1.6e2`             | The `e2` means $\times 10^2$. Note that there are no spaces in the R expression.
-$1.6 \times 10^{-3}$ | `1.6e-3`            | The `e-3` means $\times 10^2$. Again, no spaces.
+$1.6 \times 10^{-3}$ | `1.6e-3`            | The `e-3` means $\times 10^{-3}$. Again, no spaces.
 $3,425,187$          | `3425187`          || Don't use commas to divide into 3-digit groups.
 $15 + 3$             | `15 + 3`            |
 $\frac{15}{3}$       | `15 / 3`            |

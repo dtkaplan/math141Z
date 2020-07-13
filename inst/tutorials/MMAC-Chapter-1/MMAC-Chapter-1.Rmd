@@ -289,8 +289,9 @@ An alternative to plotting two graphs on top  of one another and looking for the
 ```{r echo=TRUE}
 excess_demand <- makeFun(demand(price) - supply(price) ~ price)
 slice_plot(excess_demand(price) ~ price, domain(price = c(0, 100)))
-```
-According to  the graph, for prices below  about $50, demand exceeds supply, while for prices above about 70$ there is excess supply compared to demand. Where the graph crosses an output of zero, demand and supply are equal.
+``` 
+
+According to  the graph, for prices below  about \$50, demand exceeds supply, while for prices above about \$70 there is excess supply compared to demand. Where the graph crosses an output of zero, demand and supply are equal.
 
 Looking for the zero-crossing of a difference function is a perfect sensible way to see whether the two functions produce the same output for a given input. But sometimes you won't want the trouble of reading the x-axis to find a precise value of the input where the zero-crossing happens. An alternative, not involving graphics, is to use `findZeros()`.
 
@@ -369,7 +370,8 @@ To plot the inverse of $f()$  you just need to flip the  horizontal and vertical
 ```{r echo=TRUE}
 slice_plot(f(x) ~ x, domain(x = c(-5, 5))) %>%
   gf_refine(coord_flip())
-```
+```  
+
 To evaluate the inverse, choose the point you want on the *horizontal* axis and read up to the value of the function according to the vertical axis.
 
 A mathematician would point out that this flipped graph shows that $f()$  does not have an inverse; the flipped graph fails the "vertical line" test. The mathematical definition of a function requires that the function have only one possible output for any value of the input.
