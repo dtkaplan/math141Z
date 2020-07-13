@@ -248,7 +248,7 @@ Surface plots are much easier to interpret if you can rotate them. Use your mous
 
 ### Practice
 
-`r etude::include_etude("Exercises/Computing/doe-bid-vase.Rmd", "**MMAC Question 1.2.6*: ", package = "math141Zexercises")`
+`r etude::include_etude("Exercises/Computing/doe-bid-vase.Rmd", "**MMAC Question 1.2.6**: ", package = "math141Zexercises")`
 
 
 ## Graphing two functions together

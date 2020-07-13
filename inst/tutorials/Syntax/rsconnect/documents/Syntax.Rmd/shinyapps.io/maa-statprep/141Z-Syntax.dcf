@@ -5,8 +5,8 @@ account: maa-statprep
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2549224
-bundleId: 3368140
+bundleId: 3383130
 url: https://maa-statprep.shinyapps.io/141Z-Syntax/
-when: 1594227466.37785
+when: 1594576583.64014
 asMultiple: FALSE
 asStatic: FALSE
