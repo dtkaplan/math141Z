@@ -38,7 +38,7 @@ submitr::login_controls()
 options(tutorial.storage = "none")
 vfun <- basket::check_valid
   #submitr::make_basic_validator(NULL, "hello")
-storage_actions <- submitr::record_gs4("1w3fEld2rZlR_6FuzvkA-viOLBA5JdqD3xHl-LuLX3-Y", "statprep.annie@gmail.com", vfun)
+storage_actions <- submitr::record_gs4("1jiV11I9tlEfAhRrkYqn6kPtkNma04TEpSCk-XMSuIRM", "statprep.annie@gmail.com", vfun)
   # submitr::record_local("./minimal_submissions.csv")
 submitr::shiny_logic(input, output, session, vfun,
                      storage_actions)

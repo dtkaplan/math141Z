@@ -5,8 +5,8 @@ account: maa-statprep
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2546704
-bundleId: 3383151
+bundleId: 3391923
 url: https://maa-statprep.shinyapps.io/MMAC-Chapter-1/
-when: 1594577164.32481
+when: 1594748284.40578
 asMultiple: FALSE
 asStatic: FALSE
