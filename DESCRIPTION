@@ -16,4 +16,5 @@ Suggests:
     etude,
     gradethis,
     Ryacas,
-    submitr
+    submitr,
+    orthopolynom
