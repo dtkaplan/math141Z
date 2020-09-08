@@ -102,7 +102,6 @@ ns_M <- splines::ns
 fourier_set <- function(df, left = -1, right = 1) {
   base_period <- right - left
   funs <- list()
-  funs[[1]] <- function(x) rep(1, length(x))
   for (index  in 1:df) {
     # Each period needs its own environment
     this_env <- new.env()
@@ -111,16 +110,16 @@ fourier_set <- function(df, left = -1, right = 1) {
     environment(S) <- this_env
     C <- function(x) cos(2*pi*x*index / base_period)
     environment(C) <- this_env
-    funs[[2*index]] <- S
-    funs[[2*index + 1]] <- C
+    funs[[2*index - 1]] <- S
+    funs[[2*index]] <- C
 
   }
   # return(funs)
   function(x, n) {
     if (length(n) != 1)
       stop("Must use a single value for n.")
-    if (n != round(n) || n > (2*df+1) || n < 1)
-      stop("n  must be an  integer between 1 and ", 2*df+1)
+    if (n != round(n) || n > (2*df) || n < 1)
+      stop("n  must be an  integer between 1 and ", 2*df)
     funs[[n]](x)
   }
 }
