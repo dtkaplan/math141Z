@@ -17,4 +17,6 @@ Suggests:
     gradethis,
     Ryacas,
     submitr,
-    orthopolynom
+    orthopolynom,
+    ggformula, 
+    grid
