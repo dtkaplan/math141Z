@@ -4,19 +4,19 @@
 \alias{iterate}
 \title{Iterate a function on an initial condition}
 \usage{
-iterate(f = cos, x0 = 0, n = 10, ...)
+iterate(f = cos, x0 = 0, n = 10, fargs = list())
 }
 \arguments{
 \item{f}{a function of one or more state variables which returns a vector containing
 those same state variables. Parameters to \code{f()}, if any, should be named and at
-the end of the argument list.}
+the end of the argument list. State variables should \strong{not} have default values.}
 
 \item{x0}{a vector with the numerical initial condition. There should be 1 component
 in \code{x0} for each of the state variables in \code{f()}.}
 
 \item{n}{an integer specifying the number of iterations}
 
-\item{...}{values for numerical parameters to the function \code{f()}}
+\item{fargs}{list containing values for numerical parameters to the function \code{f()}}
 }
 \value{
 A data frame with a column \code{.i} listing the iteration number
@@ -34,7 +34,7 @@ initial condition \code{x0} must match the number of state arguments. Numerical 
 parameters (if any) must be provided in the \code{...} slot.
 }
 \examples{
-iterate(function(x, mu=3.5) mu*x*(1-x), .232, n=10, mu=4) # chaos
+iterate(function(x, mu=3.5) mu*x*(1-x), .232, n=10, list(mu=4)) # chaos
 iterate(function(x, y) c(x+y, x-y), c(1,1), n=10)
 iterate(function(x, y) c(x+y, x), c(0,1), n=10) # fibonacci
 }
