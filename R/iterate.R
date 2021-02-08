@@ -25,7 +25,8 @@
 #' iterate(function(x, y) c(x+y, x-y), c(1,1), n=10)
 #' iterate(function(x, y) c(x+y, x), c(0,1), n=10) # fibonacci
 #' @export
-iterate <- function(f=cos, x0=0, n=10, fargs=list()) {
+Iterate <- function(f=cos, x0=0, n=10, fargs=list()) {
+  if (inherits(f, "formula")) f <- makeFun(f)
   vnames <- names(formals(f))
   has_default <- sapply(formals(f), class) != "name"
   if (is.null(vnames)) vnames <- "x"
@@ -35,7 +36,7 @@ iterate <- function(f=cos, x0=0, n=10, fargs=list()) {
   res[1,] <- x0
   for (k in 2:(n+1)) res[k,] <- do.call(f, c(as.list(res[k-1,]), fargs))
   out <- cbind(0:n, as.data.frame(res))
-  names(out) <- c(".i", setdiff(vnames, vnames[has_default]))
+  names(out) <- c("n", setdiff(vnames, vnames[has_default]))
 
   out
 }
