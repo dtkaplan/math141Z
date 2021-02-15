@@ -44,7 +44,7 @@ abcdServer <- function(id) {
         lambdas <- eigenvalues(avalue(), bvalue(), c=input$cvalue, d=input$dvalue)
         output$show_values <- renderUI({
           withMathJax(
-            div(glue::glue("$$\\lambda_1 = {round(lambdas[1], 3)}$$ $$\\lambda_2 = {round(lambdas[2], 3)}$$"))
+            div(glue::glue("$$\\lambda_1 = {signif(lambdas[1], 4)}$$ $$\\lambda_2 = {signif(lambdas[2], 4)}$$"))
           )
         })
       })
