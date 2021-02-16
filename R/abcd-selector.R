@@ -4,21 +4,18 @@ abcdUI <- function(id) {
   ns <- NS(id)
   tagList(
     plotOutput(ns("ABplot"),
-               click=ns("selected_point"), height="200px"),
-    div(uiOutput(ns("show_values")), style="width:200px;"),
-    sliderInput(ns("cvalue"),
-                "c: ",
-                min = -1,
-                max = 1,
-                step = 0.01,
-                value = 1),
-    sliderInput(ns("dvalue"),
-                "d: ",
-                min = -1,
-                max = 1,
-                step = 0.01,
-                value = 0)
+               click=ns("selected_point"), width="350px"),
+    uiOutput(ns("show_values")),
+    splitLayout(cellWidths = c("15%","15%", "5%", "25%", "5%", "25%"),
+      textOutput(ns("areport")),
+      textOutput(ns("breport")),
+      span("c:"),
+      numericInput(ns("cvalue"), label="", value=1,min=-1, max=2, step=0.01, width="65px"),
+      span("d:"),
+    numericInput(ns("dvalue"), label="" ,value=0,min=-1, max=1, step=0.01, width="65px")
+    )
   )
+
 }
 
 eigenvalues <- function(a, b, c=1, d=0) {
@@ -33,6 +30,12 @@ abcdServer <- function(id) {
     function(input, output, session) {
       avalue <- reactiveVal(0.5)
       bvalue <- reactiveVal(0)
+      output$areport <- renderText({
+        paste0("a =", signif(avalue(),3 ))
+      })
+      output$breport <- renderText({
+        paste0("b =", signif(bvalue(),3 ))
+      })
       observe({
         if ( ! is.null(input$selected_point)) {
           avalue(input$selected_point$x)
@@ -44,7 +47,7 @@ abcdServer <- function(id) {
         lambdas <- eigenvalues(avalue(), bvalue(), c=input$cvalue, d=input$dvalue)
         output$show_values <- renderUI({
           withMathJax(
-            div(glue::glue("$$\\lambda_1 = {signif(lambdas[1], 4)}$$ $$\\lambda_2 = {signif(lambdas[2], 4)}$$"))
+            div(glue::glue("$$\\lambda_1 = {signif(lambdas[1], 4)}\\ \\ \\ \\lambda_2 = {signif(lambdas[2], 4)}$$", style="text-align: center;"))
           )
         })
       })
