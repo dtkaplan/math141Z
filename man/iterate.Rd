@@ -4,12 +4,16 @@
 \alias{Iterate}
 \title{Iterate a function on an initial condition}
 \usage{
-Iterate(f = cos, x0 = 0, n = 10, fargs = list())
+Iterate(f = NULL, A = NULL, x0 = 0, n = 10, fargs = list())
 }
 \arguments{
 \item{f}{a function of one or more state variables which returns a vector containing
 those same state variables. Parameters to \code{f()}, if any, should be named and at
 the end of the argument list. State variables should \strong{not} have default values.}
+
+\item{A}{As an alternative to \code{f} you can give a square matrix and iteration
+will be done on the system x\link{n+1} = A x\link{n}. In lieu of a square matrix
+you can also give a vector to be rendered into a square matrix rowwise.}
 
 \item{x0}{a vector with the numerical initial condition. There should be 1 component
 in \code{x0} for each of the state variables in \code{f()}.}
@@ -28,7 +32,7 @@ Iterates a function a specified number of times on an initial condition.
 }
 \details{
 The function \code{f} can take one or more arguments. The first of these
-should represent the \emph{state} of the dynamical system, e.g. x or x and y, etc.
+should represent the \emph{state} of the dynamical system, e.g. x, or x and y, etc.
 At the end of the argument list to \code{f} can come named parameters. The length of the
 initial condition \code{x0} must match the number of state arguments. Numerical values for
 parameters (if any) must be provided in the \code{...} slot.
