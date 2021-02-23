@@ -38,7 +38,8 @@ initial condition \code{x0} must match the number of state arguments. Numerical 
 parameters (if any) must be provided in the \code{...} slot.
 }
 \examples{
-iterate(function(x, mu=3.5) mu*x*(1-x), .232, n=10, list(mu=4)) # chaos
-iterate(function(x, y) c(x+y, x-y), c(1,1), n=10)
-iterate(function(x, y) c(x+y, x), c(0,1), n=10) # fibonacci
+Iterate(function(x, mu=3.5) mu*x*(1-x), .232, n=10, list(mu=4)) # chaos
+Iterate(function(x, y) c(x+y, x-y), c(1,1), n=10)
+Iterate(function(x, y) c(x+y, x), c(1,0), n=10) # fibonacci
+Iterate(A = [1 1 1 0], c(1,0), n=5) # fibonacci described by a matrix
 }
