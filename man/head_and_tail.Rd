@@ -21,3 +21,9 @@ that there are elided rows}
 \description{
 Works just like \code{head()} or \code{tail} but shows both the first and last rows
 }
+\examples{
+head_and_tail(mtcars)
+mtcars \%>\% head_and_tail(ntop=2, nbottom=4)
+mtcars \%>\% head_and_tail(nmiddle = 3)
+
+}
