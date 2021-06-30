@@ -1,51 +1,56 @@
-#' Patterns for differentiation
+#' Rules for differentiation
 #'
-#' Each pattern `pat_` function checks the input expression for a particular kind of structure.
+#' Each `_rule` function checks the input expression for a particular kind of structure.
 #' If that structure is found, the function returns an expression for the **derivative**.
 #' But if the pattern sought is not found, the function returns FALSE.
 #'
+#' @name differentiation_rules
+#'
+#' @details
 #' Currently, these differentiate with respect to `x`
 #'
-#' @input X an R expression such as `a*x + b`
+#'
+#' @param X an R expression such as `a*x + b`
 #'
 #'
 #' @examples
-#' pat_x(x)
-#' pat_axb(x)
-#' pat_axb(a*x + 7)
+#' x_rule(x)
+#' axb_rule(x)
+#' axb_rule(a*x + 7)
 
 library(rlang)
 
+
 #' @export
-pat_x <- function(X) {
+x_rule <- function(X) {
   is_x(substitute(X))
 }
 #' @export
-pat_ax <- function(X) {
+ax_rule <- function(X) {
   is_ax(substitute(X))
 }
 #' @export
-pat_axb <- function(X) {
+axb_rule <- function(X) {
   is_axb(substitute(X))
 }
 #' @export
-pat_basic <- function(X){
+bmf_rule <- function(X){
   is_basic(substitute(X))
 }
 #' @export
-pat_compose <- function(X) {
+chain_rule <- function(X) {
   is_fx(substitute(X))
 }
 #' @export
-pat_lin_comb <- function(X) {
+sum_rule <- function(X) {
   is_sum(substitute(X))
 }
 #' @export
-pat_prod <- function(X) {
+product_rule <- function(X) {
   is_prod(substitute(X))
 }
 #' @export
-pat_power <- function(X) {
+power_rule <- function(X) {
   is_pow(substitute(X))
 }
 
@@ -280,7 +285,17 @@ is_fx <- function(X) {
                 pnorm=quote(dnorm),
                 dnorm=quote(ddnorm),
                 sinh=quote(cosh),
-                cosh=quote(sinh)
+                cosh=quote(sinh),
+                # provide support for basic example functions
+                f=quote(dx_f),
+                g=quote(dx_g),
+                h=quote(dx_h),
+                dx_f=quote(dxx_f),
+                dx_g=quote(dxx_g),
+                dx_h=quote(dxx_h),
+                dxx_f=quote(dxxx_f),
+                dxx_g=quote(dxxx_g),
+                dxx_h=quote(dxxx_h)
   )
   composed <- list(
     tan=tan_prime,
