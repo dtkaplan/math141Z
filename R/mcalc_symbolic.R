@@ -1,8 +1,58 @@
 #' Simplify a mathematical expression in a function using Ryacas
 #'
 #' @param fun The function whose body contains a mathematical expression.
+#' @param X an R expression implementing a mathematical function
 #'
+#' @export
+convert_R_to_Ryacas <- function(X) {
+  if (length(X) == 1) return(X)
+
+  X[[1]] <- as.name(R_to_Ryacas(as.character(X[[1]])))
+
+  for(k in 2:length(X)) {
+    X[[k]] <- convertFuns(X[[k]])
+  }
+
+  return(X)
+}
+
+convert_Ryacas_string_to_R <- function(str) {
+  for (k in 1:length(Ryacas_to_R_dictionary)) {
+    str <- gsub(names(Ryacas_to_R_dictionary)[k], Ryacas_to_R_dictionary[[k]], str )
+  }
+  return(str)
+}
+
+R_to_Ryacas_dictionary <- list(sin = "Sin", cos = "Cos", exp = "Exp", log = "Ln")
+invert_list <- function(L) {
+  res <- L
+  names(res) <- unlist(L[1:length(L)])
+  res[1:length(L)] <- names(L)
+  res
+}
+Ryacas_to_R_dictionary <- invert_list(R_to_Ryacas_dictionary)
+
+R_to_Ryacas <- function(f) {
+  if (as.character(f) %in% names(R_to_Ryacas_dictionary)) {
+    return(R_to_Ryacas_dictionary[[as.character(f)]])
+  } else {
+    return(f)
+  }
+}
 #'
+simplify_expr <- function(X){
+  for_yac <- glue::glue("Simplify({deparse(convert_R_to_Ryacas(X))})")
+  res <- yac_str(for_yac)
+  res <- convert_Ryacas_string_to_R(res)
+  str2lang(res)
+}
+differentiate_expr <- function(X, wrt="x") {
+  for_yac <- glue::glue("D({wrt}) {deparse(convert_R_to_Ryacas(X))}")
+  res <- yac_str(for_yac)
+  res <- convert_Ryacas_string_to_R(res)
+  str2lang(res)
+}
+
 #' @export
 mcalc_simplify <- function(fun) {
   bod <- body(fun)
