@@ -18,7 +18,8 @@ Imports:
     plotly,
     metR,
     rlang,
-    ggplot2
+    ggplot2,
+    crayon
 Suggests: 
     testthat (>= 2.1.0),
     gradethis,
