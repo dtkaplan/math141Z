@@ -43,7 +43,7 @@ scale_shift <- function(min, max, r, x0=0, nticks=10) {
 
 
 #' @export
-add_scale <- function(tilde, domain, r, x0, nticks=10) {
+add_scale <- function(tilde, domain, r, x0, nticks=10, color="blue") {
   F <- makeFun(tilde)
   Pts <- tibble::tibble(
     xpts = seq(domain[[1]][1], domain[[1]][2], length=500),
@@ -62,12 +62,12 @@ add_scale <- function(tilde, domain, r, x0, nticks=10) {
     end = vert + tick_height/2,
   )
 
-  gf_line(vert ~ horiz, data = New, color="red") %>%
+  gf_line(vert ~ horiz, data = New, color=color) %>%
     gf_text(vert ~ horiz, label = ~ as.character(yvals),
             data = New, vjust=0, nudge_y = nudge,
-            color="red") %>%
+            color=color) %>%
     gf_errorbar(end + vert ~ horiz, width=0, data=New,
-                color="red") %>%
+                color=color) %>%
     slice_plot(tilde, domain)
 }
 #' @examples

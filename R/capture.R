@@ -21,14 +21,19 @@
 capture <- function(cmd, message = "") {
   cmd2 <- substitute(cmd)
   if (is.call(cmd2) || is.name(cmd2)) {
-    res <- eval(cmd2)
+    res <- eval(cmd2, envir = .GlobalEnv)
   } else {
     res <- cmd
   }
   if (is.numeric(res) || is.character(res)) {
+    if (base::interactive()) {
   cat(crayon::inverse(paste(deparse(cmd2), crayon::red(" --> "))),
       one_liner(res), crayon::blue(message))
   invisible(res)
+    } else {
+      show <- glue::glue("<code style='color red;'>{deparse(cmd2)}</code>")
+      return(HTML(show))
+    }
   } else {
     res
   }
