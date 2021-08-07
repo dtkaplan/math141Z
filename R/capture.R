@@ -21,7 +21,7 @@
 capture <- function(cmd, message = "") {
   cmd2 <- substitute(cmd)
   if (is.call(cmd2) || is.name(cmd2)) {
-    res <- eval(cmd2, envir = .GlobalEnv)
+    res <- eval(cmd2, envir = parent.env(environment()))
   } else {
     res <- cmd
   }
