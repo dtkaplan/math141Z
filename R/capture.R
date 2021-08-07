@@ -18,10 +18,10 @@
 #' cos(7) |> capture("Example 3")
 #' annot("Show the plot")
 #' @export
-capture <- function(cmd, message = "") {
+capture <- function(cmd, message = "", digits=4) {
   cmd2 <- substitute(cmd)
   if (is.call(cmd2) || is.name(cmd2)) {
-    res <- force(cmd) #eval(cmd2, envir = parent.env(environment()))
+    res <- force(cmd)
   } else {
     res <- cmd
   }
@@ -31,7 +31,7 @@ capture <- function(cmd, message = "") {
       one_liner(res), crayon::blue(message))
   invisible(res)
     } else {
-      show <- glue::glue("<code style='color red;'>{deparse(cmd2)}</code>")
+      show <- glue::glue("<code>{deparse(cmd2)}</code>  -->  <strong>{paste(format(res, digits=digits), collapse='  ')}</strong>  <em># {message}</em><br><br>", )
       return(HTML(show))
     }
   } else {
