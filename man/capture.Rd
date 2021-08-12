@@ -4,7 +4,7 @@
 \alias{capture}
 \title{Displays the result of a command with the command itself}
 \usage{
-capture(cmd, message = "")
+capture(cmd, message = "", digits = 4)
 }
 \arguments{
 \item{cmd}{An R expression, typically piped into \code{capture()}}
