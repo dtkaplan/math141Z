@@ -11,6 +11,9 @@ An object of class \code{grouped_df} (inherits from \code{tbl_df}, \code{tbl}, \
 Covid_US
 }
 \description{
+For documentation, see \verb{https://covid19datahub.io/articles/doc/data.html}
+}
+\details{
 See Guidotti, E., Ardia, D., (2020), "COVID-19 Data Hub", Journal
 of Open Source Software 5(51):2376, doi: 10.21105/joss.02376.
 }
