@@ -5,12 +5,13 @@
 \alias{Covid_US}
 \title{COVID data from the first half of the pandemic}
 \format{
-An object of class \code{grouped_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 189 rows and 18 columns.
+An object of class \code{grouped_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 575 rows and 36 columns.
 }
 \usage{
 Covid_US
 }
 \description{
-COVID data from the first half of the pandemic
+See Guidotti, E., Ardia, D., (2020), "COVID-19 Data Hub", Journal
+of Open Source Software 5(51):2376, doi: 10.21105/joss.02376.
 }
 \keyword{datasets}

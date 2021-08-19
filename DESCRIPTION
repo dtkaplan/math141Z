@@ -19,7 +19,8 @@ Imports:
     metR,
     rlang,
     ggplot2,
-    crayon
+    crayon,
+    palmerpenguins
 Suggests: 
     testthat (>= 2.1.0),
     gradethis,
